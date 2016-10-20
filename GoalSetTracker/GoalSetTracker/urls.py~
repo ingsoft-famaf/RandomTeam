@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^goal/(?P<goal_id>[0-9]+)/new_sub_goal$', goal_views.new_sub_goal, name='new_sub_goal'),
     
     ##############-------------------------
-    url(r'^category/',include('category.urls')),
+    url(r'^categories/',include('categories.urls')),
     ##############-------------------------
     
     url(r'^admin/', admin.site.urls)
