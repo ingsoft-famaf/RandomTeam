@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Add Comment </title>
+</head>
+    <h1> Add Comment </h1>
+  <body>
+    <form action="{% url 'new_comment' goal.id %}" method="post">{% csrf_token %}
+      <p> Comment <input name="comment_text" size=400> </p>
+      <p> <input type="submit" value="Submit"> </p
+    </form>
+  </body>
+</html>
