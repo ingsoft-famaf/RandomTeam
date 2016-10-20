@@ -1,0 +1,18 @@
+<h1>{{ goal.goal_text }}</h1>
+<h3>Finish Date: {{ goal.finish_date }}</h3>
+<h3>Create Date: {{ goal.create_date }}</h3>
+<h3>Priority {{ goal.priority }}</h3>
+<h3>State {{ goal.state }}</h3>
+<ul>
+{% for subgoal in goal.subgoal_set.all %}
+    <li>{{ subgoal.sub_goal_text }}</li>
+{% endfor %}
+</ul>
+<h4>New Sub Goal</h4>
+<form action="{% url 'new_sub_goal' goal.id %}" method="get">
+    <input type="submit" value="New Sub Goal" />
+</form>
+<h4>Modify Goal</h4>
+<form action="{% url 'modify_goal' goal.id %}" method="get">
+    <input type="submit" value="Modify Goal" />
+</form>
