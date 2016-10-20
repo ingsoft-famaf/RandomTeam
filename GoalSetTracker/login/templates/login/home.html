@@ -1,1 +1,15 @@
-<h1> HOLA </h1>
+{{ user }}
+<ul>
+{% for goal in goals %}
+    <li><a href="#">{{ goal.goal_text }} ||  {{ goal.finish_date }}</a></li>
+{% endfor %}
+</ul>
+<form action="/logout" method="get">
+    <input type="submit" value="Logout" />
+</form>
+
+
+<h4>Goals</h4>
+<form action="/new_goal" method="get">
+    <input type="submit" value="New Goal" />
+</form>

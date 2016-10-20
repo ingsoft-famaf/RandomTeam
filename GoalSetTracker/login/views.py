@@ -11,8 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 def login(request):
     # Si esta logueado lo redirecciono al home.
     if request.user.is_authenticated:
-        # return redirect_home(request.user.username)
-        return HttpResponse("Hola {}".format(request.user.username))
+        return redirect_home(request.user.username)
     # Si es una solicitud de login, checkeo que este bien.
     if request.method == "POST":
         username = request.POST.get("username")
@@ -22,8 +21,7 @@ def login(request):
             user = authenticate(username=username, password=password, email=email)
             if user is not None:
                 login_user(request, user)
-                # return redirect_home(username)
-                return HttpResponse("Hola {}".format(username))
+                return redirect_home(username)
 
     return render(request, 'login/login.html')
 
@@ -39,9 +37,8 @@ def new_user(request):
                                             email=email
                                             )
             # TODO: Comprobar que no redirecciona luego de crear cuenta
-            # return redirect_home(username)
-            return HttpResponseRedirect('/login')
-    return render(request, 'login/new_user.html')
+            return redirect_home(username)
+    return HttpResponseRedirect('/login')
 
 # TODO: checkear que este logueado
 def logout(request):
@@ -63,7 +60,7 @@ def home(request, username="Anonymous"):
                 goals = user.goal_set.all()
             except Exception as e:
                 return HttpResponse("El usuario no existe")
-            return render(request, 'home/detail.html', {
+            return render(request, 'login/home.html', {
                 'user'  : username,
                 'goals' : goals,
             })

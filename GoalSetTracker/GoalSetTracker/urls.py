@@ -16,10 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from login import views as login_views
+from goal import views as goal_views
 
 urlpatterns = [
     url(r'^login/', include('login.urls')),
     url(r'^logout$', login_views.logout, name='logout'),
     url(r'^new_user$', login_views.new_user, name='new_user'),
+    url(r'^home/(?P<username>[\w.@+-]+)/$', login_views.home, name='home'),
+    url(r'^home/$', login_views.home, name='home'),
+    url(r'^new_goal$', goal_views.new_goal, name='new_goal'),
     url(r'^admin/', admin.site.urls),
 ]
