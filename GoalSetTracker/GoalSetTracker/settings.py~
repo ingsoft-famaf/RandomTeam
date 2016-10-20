@@ -33,11 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'goal.apps.GoalConfig',
-<<<<<<< HEAD
-    'commentary.apps.CommentaryConfig',
-=======
-    'category.apps.CategoryConfig',
->>>>>>> Creada la app category
+    'goal.apps.CategoryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
