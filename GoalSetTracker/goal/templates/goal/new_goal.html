@@ -9,7 +9,15 @@
     <form action="{% url 'new_goal' %}" method="post">{% csrf_token %}
       <p> Description <input name="goal_text" size=40> </p>
       <p> Deadline <input name="finish_date" size=40 type="date"> </p>
-      <input type="submit" value="Submit">
+      <p> Priority
+      <input type="radio" name="priority" value="H" > High
+      <input type="radio" name="priority" value="M"checked> Medium
+      <input type="radio" name="priority" value="L"> Low  </p>
+      <p> State
+      <input type="radio" name="state" value="PROGRESS" checked> In Progress
+      <input type="radio" name="state" value="PROPOS"> Proposed
+      <input type="radio" name="state" value="FINISH"> Finished </p>
+      <p> <input type="submit" value="Submit"> </p
     </form>
   </body>
 </html>
