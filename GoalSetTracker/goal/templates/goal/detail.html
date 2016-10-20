@@ -5,7 +5,7 @@
 <h3>State {{ goal.state }}</h3>
 <ul>
 {% for subgoal in goal.subgoal_set.all %}
-    <li>{{ subgoal.sub_goal_text }}</li>
+    <li>{{ subgoal.goal_text }}</li>
 {% endfor %}
 </ul>
 <h4>New Sub Goal</h4>
@@ -15,4 +15,8 @@
 <h4>Modify Goal</h4>
 <form action="{% url 'modify_goal' goal.id %}" method="get">
     <input type="submit" value="Modify Goal" />
+</form>
+<h4>Delete Goal</h4>
+<form action="{% url 'delete_goal' goal.id %}" method="get">
+    <input type="submit" value="Delete Goal" />
 </form>

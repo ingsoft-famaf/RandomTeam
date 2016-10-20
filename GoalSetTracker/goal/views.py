@@ -27,7 +27,6 @@ def new_goal(request):
     else:
         return HttpResponseRedirect("/login")
 
-#TODO: Sacar el "default" de goal_id
 def new_sub_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     if request.user.is_authenticated:
@@ -35,10 +34,26 @@ def new_sub_goal(request, goal_id):
             finish_date = request.POST.get("finish_date")
             if finish_date == '':
                 finish_date = timezone.now()
-            goal.subgoal_set.create(sub_goal_text=request.POST.get("sub_goal_text"))
+            goal.subgoal_set.create(goal_text=request.POST.get("goal_text"),
+                                     finish_date=finish_date,
+                                     create_date=timezone.now(),
+                                     priority = request.POST.get("priority"),
+                                     state = request.POST.get("state")
+                                     )
             return redirect_goal(goal_id)
         else:
             return render(request, 'goal/new_sub_goal.html', {'goal': goal})
+    else:
+        return HttpResponseRedirect("/login")
+
+def delete_goal(request, goal_id):
+    goal = get_object_or_404(Goal, pk=goal_id)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            goal.delete()
+            return redirect_home(request.user.username)
+        else:
+            return render(request, 'goal/delete.html', {'goal': goal})
     else:
         return HttpResponseRedirect("/login")
 
