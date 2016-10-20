@@ -9,6 +9,10 @@
 {% endfor %}
 </ul>
 <h4>New Sub Goal</h4>
-<form action="{% url 'new_sub_goal' %}" method="get">
+<form action="{% url 'new_sub_goal' goal.id %}" method="get">
     <input type="submit" value="New Sub Goal" />
+</form>
+<h4>Modify Goal</h4>
+<form action="{% url 'modify_goal' goal.id %}" method="get">
+    <input type="submit" value="Modify Goal" />
 </form>
