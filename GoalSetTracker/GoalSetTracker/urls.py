@@ -20,10 +20,12 @@ from goal import views as goal_views
 
 urlpatterns = [
     url(r'^login/', include('login.urls')),
+    url(r'^$', login_views.login, name='login'),
     url(r'^logout$', login_views.logout, name='logout'),
     url(r'^new_user$', login_views.new_user, name='new_user'),
     url(r'^home/(?P<username>[\w.@+-]+)/$', login_views.home, name='home'),
     url(r'^home/$', login_views.home, name='home'),
     url(r'^new_goal$', goal_views.new_goal, name='new_goal'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/$', goal_views.detail_goal, name='detail'),
     url(r'^admin/', admin.site.urls),
 ]

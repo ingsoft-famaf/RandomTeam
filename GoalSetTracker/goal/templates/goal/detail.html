@@ -1,0 +1,6 @@
+<h1>{{ goal.goal_text }}</h1>
+<ul>
+{% for choice in goal.subgoal_set.all %}
+    <li>{{ choice.sub_goal_text }}</li>
+{% endfor %}
+</ul>

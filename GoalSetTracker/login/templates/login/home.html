@@ -1,9 +1,13 @@
 {{ user }}
-<ul>
-{% for goal in goals %}
-    <li><a href="#">{{ goal.goal_text }} ||  {{ goal.finish_date }}</a></li>
-{% endfor %}
-</ul>
+{% if goals %}
+    <ul>
+    {% for goal in goals %}
+        <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay metas</p>
+{% endif %}
 <form action="/logout" method="get">
     <input type="submit" value="Logout" />
 </form>

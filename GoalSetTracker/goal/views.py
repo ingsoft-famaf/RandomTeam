@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from login.views import redirect_home
 from .models import Goal
@@ -23,3 +23,7 @@ def new_goal(request):
             return render(request, 'goal/new_goal.html')
     else:
         return HttpResponseRedirect("/login")
+
+def detail_goal(request, goal_id):
+    goal = get_object_or_404(Goal, pk=goal_id)
+    return render(request, 'goal/detail.html', {'goal': goal})
