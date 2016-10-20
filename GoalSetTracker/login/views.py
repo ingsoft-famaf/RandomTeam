@@ -36,11 +36,10 @@ def new_user(request):
                                             password=password,
                                             email=email
                                             )
-            # TODO: Comprobar que no redirecciona luego de crear cuenta
+            login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')
 
-# TODO: checkear que este logueado
 def logout(request):
     logout_user(request)
     return HttpResponseRedirect("/login")
