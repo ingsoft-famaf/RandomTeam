@@ -1,0 +1,9 @@
+<form action="{{ action }}" method="POST">
+<h2> Archivos </h2>
+
+{% for field in form %}
+<br>    <h5>{{ field.label_tag }}</h5> {{ field }}
+{% endfor %}
+<br> <h5> <button type='submit'>Save</button> </h5>
+{% csrf_token %}
+</form>

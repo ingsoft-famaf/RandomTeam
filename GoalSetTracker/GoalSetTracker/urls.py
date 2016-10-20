@@ -1,4 +1,4 @@
-"""mysite URL Configuration
+"""GoalSetTracker URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -20,6 +20,8 @@ from goal import views as goal_views
 from commentary import views as comment_views
 
 urlpatterns = [
+	url(r'^upload/', include("upload.urls")),
+    url(r'^admin/', admin.site.urls),
     url(r'^login/', include('login.urls')),
     url(r'^$', login_views.login, name='login'),
     url(r'^logout$', login_views.logout, name='logout'),

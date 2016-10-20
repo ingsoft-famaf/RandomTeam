@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'goal.apps.GoalConfig',
     'commentary.apps.CommentaryConfig',
     'category.apps.CategoryConfig',
+    'upload.apps.UploadConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,4 +141,3 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
-
