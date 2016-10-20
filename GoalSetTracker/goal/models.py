@@ -36,6 +36,7 @@ class AbstractGoal(models.Model):
 class Goal(AbstractGoal):
     categoria = models.CharField(max_length=200)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return self.categoria
 
