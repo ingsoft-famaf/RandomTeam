@@ -17,7 +17,7 @@ def new_comment(request, goal_id):
         except Exception as e:
             return HttpResponse("El usuario no existe")
         if request.method == "POST":
-            comment = Comment.objects.Create(owner=user, goal=goal, comment_text=request.POST.get("comment_text"))
+            comment = Comment(owner=user, goal=goal, comment_text=request.POST.get("comment_text"))
             return redirect_home(request.user.username)
         else:
             return render(request, 'commentary/new_comment.html', {'goal': goal })

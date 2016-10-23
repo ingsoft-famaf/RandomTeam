@@ -7,7 +7,7 @@ from goal.models import Goal
 
 @python_2_unicode_compatible
 class Comment(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     goal = models.ForeignKey(Goal, on_delete = models.CASCADE)
     comment_text = models.CharField(max_length=400)
     create_date = models.DateTimeField(auto_now_add=True)
