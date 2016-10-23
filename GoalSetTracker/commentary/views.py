@@ -8,6 +8,7 @@ from django.utils import timezone
 from login.views import redirect_home
 from .models import Comment
 from goal.models import Goal
+from goal.views import redirect_goal
 
 def new_comment(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
@@ -19,7 +20,7 @@ def new_comment(request, goal_id):
         if request.method == "POST":
             comment = Comment(owner=user, goal=goal, text=request.POST.get("comment_text"))
             comment.save()
-            return redirect_home(request.user.username)
+            return redirect_goal(goal_id)
         else:
             return render(request, 'commentary/new_comment.html', {'goal': goal })
     else:
