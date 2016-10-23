@@ -21,8 +21,13 @@
     <input type="submit" value="Delete Goal" />
 </form>
 
-<h4>Comments</h4>
+<h4>Make a Comment</h4>
+<form action="{% url 'new_comment' goal.id %}" method="get">
+    <input type="submit" value="New Comment" />
+</form>
+<br />
 
+<h4>Comments</h4>
 <div class="comments list" style = "background-color:white; width:40%;
                                     border-radius:3px">
 {% for comment in comments %}
