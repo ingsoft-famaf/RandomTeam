@@ -12,17 +12,26 @@ def index(request):
 
 @csrf_protect
 def upload_img(request):
+    error = None
     if request.method == 'POST':
         form = forms.ArchivoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("listar"))
+            tiene_url = len(form.cleaned_data['url']) > 0
+            tiene_file = len(request.FILES) > 0
+            if ((not tiene_url) and (not tiene_file)) or (tiene_url and tiene_file):
+                error = "Debe tener url o archivo"
+            else:    
+                form.save()
+                return HttpResponseRedirect(reverse("listar"))
     else:
         form = forms.ArchivoForm()
-    return render(request, "upload/index.html",{"form":form, "action": reverse("upload_img")})
+    return render(request, "upload/index.html", {"form":form, 
+                                                "action": reverse("upload_img"),
+                                                "mensaje_error": error})
 
 def archivo_list(request):
     archivo = models.Archivo.objects.all().order_by('id')
+    #archivo.fields['field'].widget.attrs['readonly'] = True
     contexto = {'archivos':archivo}
     return render(request, 'upload/archivo_list.html', contexto)
 
