@@ -5,7 +5,7 @@
 <h3>State {{ goal.state }}</h3>
 <ul>
 {% for subgoal in goal.subgoal_set.all %}
-    <li>{{ subgoal.goal_text }}</li>
+    <li><a href="{% url 'detail_sub_goal' goal.id subgoal.id%}" name=>{{ subgoal.goal_text }}</a></li>
 {% endfor %}
 </ul>
 <h4>New Sub Goal</h4>

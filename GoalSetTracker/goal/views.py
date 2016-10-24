@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from login.views import redirect_home
-from .models import Goal
+from .models import Goal, SubGoal
 
 def new_goal(request):
     if request.user.is_authenticated:
@@ -62,6 +62,14 @@ def detail_goal(request, goal_id):
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
             return render(request, 'goal/detail.html', {'goal': goal})
+    return redirect_home(request.user)
+
+def detail_sub_goal(request, goal_id, subgoal_id):
+    if request.user.is_authenticated:
+        goal = get_object_or_404(Goal, pk=goal_id)
+        if request.user == goal.owner:
+            subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
+            return render(request, 'goal/detail_sub_goal.html', {'subgoal': subgoal})
     return redirect_home(request.user)
 
 def modify_goal(request, goal_id):
