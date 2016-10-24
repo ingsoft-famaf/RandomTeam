@@ -1,0 +1,36 @@
+{% block content %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>id</td>
+			<td>titulo</td>
+			<td>descripcion</td>
+			<td>upload</td>
+			<td>url</td>
+			<td>Acciones</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% if archivos %}
+		{% for archivo in archivos %}
+		<tr>
+			<td>{{ archivo.id }}</td>
+			<td>{{ archivo.titulo }}</td>
+			<td>{{ archivo.descripcion }}</td>
+			<td>{{ archivo.upload }}</td>
+			<td><a href="{{ archivo.url }}">{{ archivo.url }} </a></td>
+			<td> <a  href="{% url 'archivo_editar' archivo.id  %}">
+				Editar </a>
+				<a  href="{% url 'archivo_eliminar' archivo.id  %}">
+				Eliminar </a>
+			</td>
+		{% endfor %}
+		{% else %}
+		<h3> No hay archivos adjuntos a la meta </h3>
+		{% endif %}
+		<br> <button type='submit'>
+		 <a href="{% url 'upload_img' %}"> Agregar archivo a </button> 
+		</tr>
+	</tbody>	
+
+{% endblock %}
