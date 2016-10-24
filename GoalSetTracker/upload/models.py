@@ -9,7 +9,7 @@ from django.core.files.storage import FileSystemStorage
 class Archivo(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField(null=True)
-    upload = models.FileField(upload_to='static/files', blank=True, null=True)
-    url = models.CharField(max_length=200,  blank=True, null=True)
+    upload = models.FileField(upload_to='archivos/', blank=True, null=True) # Despues guardar con el nombre de la meta
+    url = models.CharField(max_length=500,  blank=True, null=True)
 
 # Create your models here.

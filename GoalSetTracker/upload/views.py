@@ -16,10 +16,32 @@ def upload_img(request):
         form = forms.ArchivoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("success_upload"))
+            return HttpResponseRedirect(reverse("listar"))
     else:
-        form = UploadFileForm()
+        form = forms.ArchivoForm()
     return render(request, "upload/index.html",{"form":form, "action": reverse("upload_img")})
 
-def seccess_upload(request):
-    return HttpResponse("funciono")
+def archivo_list(request):
+    archivo = models.Archivo.objects.all().order_by('id')
+    contexto = {'archivos':archivo}
+    return render(request, 'upload/archivo_list.html', contexto)
+
+def archivo_editar(request, id_archivo):
+    archivo = models.Archivo.objects.get(id = id_archivo)
+    if request.method == 'GET':
+        form = forms.ArchivoForm(instance = archivo)
+    else:
+        form = forms.ArchivoForm(request.POST, instance = archivo)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse('listar'))
+
+    return render(request, 'upload/index.html', {'form':form, "action":""})
+
+def archivo_eliminar(request, id_archivo):
+    archivo = models.Archivo.objects.get(id = id_archivo)
+    if request.method == 'POST':
+        archivo.delete()
+        return HttpResponseRedirect(reverse('listar'))
+    return render(request, 'upload/archivo_delete.html', {'archivo':archivo }) 
+

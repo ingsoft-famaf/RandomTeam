@@ -5,3 +5,4 @@ class ArchivoForm(ModelForm):
 	class Meta:
 		model = models.Archivo
 		fields = ['titulo', 'descripcion', 'upload', 'url']
+	
