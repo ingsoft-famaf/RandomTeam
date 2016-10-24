@@ -1,4 +1,16 @@
+{% load static %}
 {% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+	<h2> Archivos de la meta </h2>
+	
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -7,7 +19,9 @@
 			<td>descripcion</td>
 			<td>upload</td>
 			<td>url</td>
+			<td>Fecha</td>
 			<td>Acciones</td>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -19,11 +33,13 @@
 			<td>{{ archivo.descripcion }}</td>
 			<td>{{ archivo.upload }}</td>
 			<td><a href="{{ archivo.url }}">{{ archivo.url }} </a></td>
+			<td>{{ archivo.fecha }}</td>
 			<td> <a  href="{% url 'archivo_editar' archivo.id  %}">
 				Editar </a>
 				<a  href="{% url 'archivo_eliminar' archivo.id  %}">
 				Eliminar </a>
 			</td>
+			
 		{% endfor %}
 		{% else %}
 		<h3> No hay archivos adjuntos a la meta </h3>
@@ -32,5 +48,6 @@
 		 <a href="{% url 'upload_img' %}"> Agregar archivo a </button> 
 		</tr>
 	</tbody>	
-
+<body>
+</html>
 {% endblock %}
