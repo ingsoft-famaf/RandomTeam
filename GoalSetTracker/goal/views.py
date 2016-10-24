@@ -62,7 +62,7 @@ def detail_goal(request, goal_id):
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
             return render(request, 'goal/detail.html', {'goal': goal})
-        return redirect_home(request.user)
+    return redirect_home(request.user)
 
 def modify_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
