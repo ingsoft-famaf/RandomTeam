@@ -62,7 +62,7 @@ def detail_goal(request, goal_id):
     if request.user.is_authenticated:
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
-            comments = Comment.objects.all().filter(goal=goal)
+            comments = Comment.objects.all().filter(goal=goal).order_by('-create_date')
             return render(request, 'goal/detail.html', {'goal': goal, 'comments': comments})
     return redirect_home(request.user)
 

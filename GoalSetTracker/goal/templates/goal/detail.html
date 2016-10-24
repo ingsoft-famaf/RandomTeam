@@ -28,14 +28,20 @@
 <br />
 
 <h4>Comments</h4>
-<div class="comments list" style = "background-color:white; width:40%;
+<div class="comment list" style="background-color:white; width:40%;
                                     border-radius:3px">
 {% for comment in comments %}
-    <div class="comment" style ="border: 1px solid #777777; border-radius: 5px;
+    <div class="comment" style="border: 1px solid #777777; border-radius: 5px;
                                  padding: 0px 0px 0px 10px; margin:10px 0px;">
     <p>{{ comment.text }}</p>
     <span class="comment-subtext" style="font-size: 11px;">
     {{ comment.owner }} - {{ comment.create_date }}
+    <br />
+    <div class="comment-edit-delete" >
+    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>
+    <a href="{% url 'delete_comment' goal.id comment.id %}" onclick="return confirm('Are you sure you want to delete the comment?')"
+       style="text-decoration: none !important;">[delete]</a>
+    </div>
     </span>
     </div>
 {% endfor %}

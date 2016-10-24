@@ -18,7 +18,8 @@ def new_comment(request, goal_id):
         except Exception as e:
             return HttpResponse("El usuario no existe")
         if request.method == "POST":
-            comment = Comment(owner=user, goal=goal, text=request.POST.get("comment_text"))
+            if request.POST.get("comment_text"):
+                comment = Comment(owner=user, goal=goal, text=request.POST.get("comment_text"))
             comment.save()
             return redirect_goal(goal_id)
         else:
@@ -26,25 +27,27 @@ def new_comment(request, goal_id):
     else:
         return HttpResponseRedirect("/login")
 
+def modify_comment(request, goal_id, comment_id):
+    goal = get_object_or_404(Goal, pk=goal_id)
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.POST.get("comment_text"):
+                comment.text = request.POST.get("comment_text")
+            comment.save()
+            return redirect_goal(goal_id)
+        else:
+            return render(request, 'commentary/modify_comment.html', {'goal': goal, 'comment': comment })
+    else:
+        return HttpResponseRedirect("/login")
 
-#def modify_comment(request, comment_id):
-#    comment = get_object_or_404(Goal, pk=comment_id)
-#    if request.user.is_authenticated:
-#        if request.method == "POST":
-#            if request.POST.get("finish_date"):
-#                goal.finish_date = request.POST.get("finish_date")
-#            if request.POST.get("goal_text"):
-#                goal.goal_text = request.POST.get("goal_text")
-#            if request.POST.get("create_date"):
-#                goal.create_date = request.POST.get("create_date")
-#            if request.POST.get("priority"):
-#                goal.priority = request.POST.get("priority")
-#            if request.POST.get("state"):
-#                goal.state = request.POST.get("state")
-#            goal.save()
-#            return redirect_goal(goal_id)
-#        else:
-#            return render(request, 'goal/modify_goal.html', {'goal': goal})
+def delete_comment(request, goal_id, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            comment.delete()
+        return redirect_goal(goal_id)
+    else:
+        return HttpResponseRedirect("/login")
 
-#def redirect_goal(id):
-#    return HttpResponseRedirect("/goal/{}".format(id))
+
