@@ -22,7 +22,7 @@ update_models:
 # Crear
 # user = User(username="fran", password="fran", mail="fran")
 # user.save()
-# user.goal_set.create(goal_text="TEST", finish_date=timezone.now())
+# user.goal_set.create(goal_text="TEST", finish_date=timezone.now(), create_date=timezone.now(), priority="H", state="PROGRESS", categoria="SAMPLE")
 
 # q.choice_set.create(sub_goal_text='SUB TEST1')
 # q = SubGoal(sub_goal_text="SUBBBTEST")

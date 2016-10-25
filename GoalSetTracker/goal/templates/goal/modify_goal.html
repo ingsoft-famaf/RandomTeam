@@ -7,7 +7,7 @@
     <h1> Modify Goal: {{goal.goal_text}}</h1>
   <body>
     <form action="{% url 'modify_goal' goal.id %}" method="post">{% csrf_token %}
-      <p> Description <input name="goal_text" size=40> </p>
+      <p> Description <input name="goal_text" size=40 value="{{ goal.goal_text }}"> </p>
       <p> Deadline <input name="finish_date" size=40 type="date"> </p>
       <p> Create Date <input name="create_date" size=40 type="date"> </p>
       <p> Priority

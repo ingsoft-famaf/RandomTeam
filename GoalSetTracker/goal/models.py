@@ -19,13 +19,12 @@ TipeState = (
     ('FINISH', 'Finished'),
 )
 @python_2_unicode_compatible
-class Goal(models.Model):
+class AbstractGoal(models.Model):
     goal_text = models.CharField(max_length=200)
     finish_date = models.DateTimeField('finish date')
     create_date = models.DateTimeField('date published')
     priority = models.CharField(max_length=1, choices=TipePriority)
     state = models.CharField(max_length=1, choices=TipeState)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.goal_text
@@ -34,9 +33,18 @@ class Goal(models.Model):
         return self.finish >= timezone.now()
 
 @python_2_unicode_compatible
-class SubGoal(models.Model):
-    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+class Goal(AbstractGoal):
+    categoria = models.CharField(max_length=200)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.categoria
+
+
+@python_2_unicode_compatible
+class SubGoal(AbstractGoal):
     sub_goal_text = models.CharField(max_length=200)
+    owner = models.ForeignKey(Goal, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.sub_goal_text

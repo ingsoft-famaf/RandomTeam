@@ -26,10 +26,10 @@ urlpatterns = [
     url(r'^home/(?P<username>[\w.@+-]+)/$', login_views.home, name='home'),
     url(r'^home/$', login_views.home, name='home'),
     url(r'^new_goal$', goal_views.new_goal, name='new_goal'),
-    # url(r'^new_sub_goal$', goal_views.new_sub_goal, name='new_sub_goal'),
-    # url(r'^modify_goal$', goal_views.modify_goal, name='modify_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/$', goal_views.detail_goal, name='detail'),
     url(r'^goal/(?P<goal_id>[0-9]+)/modify$', goal_views.modify_goal, name='modify_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/new_sub_goal$', goal_views.new_sub_goal, name='new_sub_goal'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)$', goal_views.detail_sub_goal, name='detail_sub_goal'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/delete$', goal_views.delete_goal, name='delete_goal'),
     url(r'^admin/', admin.site.urls),
 ]
