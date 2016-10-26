@@ -1,0 +1,11 @@
+<h1>{{ catego.categoria_tipo }}</h1>
+<h3>Tipo: {{catego.categoria_tipo}}</h3>
+<ul>
+{% for goal in catego.goal_set.all %}
+    <li>{{ goal.goal_text }}</li>
+{% endfor %}
+</ul>
+<h4>Modify Goal</h4>
+<form action="{% url 'category_edit' catego.id %}" method="get">
+    <input type="submit" value="Modify Category" />
+</form>

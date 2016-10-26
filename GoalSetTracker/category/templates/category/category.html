@@ -1,0 +1,11 @@
+<h1> Bienvenido a las categorias </h1>
+<h2> Sus categorias categorias: </h2>
+{% if category_all %}
+  <ul>
+  {% for category in category_all %}
+      <li><a href="/category/{{ category.id}}/">{{ category.categoria_tipo }} </a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No hay categorias</p>
+{% endif %}
