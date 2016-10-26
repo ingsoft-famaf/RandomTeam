@@ -9,7 +9,7 @@ from goal.models import Goal
 
 class Category(models.Model):
     category_tipo = models.CharField(max_length=200)
-    category_relacion = models.ManyToManyField(Goal)
+    goal = models.ManyToManyField(Goal)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.category_tipo

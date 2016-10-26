@@ -34,9 +34,9 @@ def category_new(request):
             user = User.objects.get(username=request.user.username)
         except Exception as e:
             return HttpResponse("The user do not exist")
-        if request.method == "POST":
+        if request.method == "POST" and request.POST.get("category_tipo") != "" :
              user.category_set.create(category_tipo=request.POST.get("category_tipo"))
-             return redirect_home(request.user.username)
+             return HttpResponseRedirect("/category")
         else:
             return render(request,'category/category_new.html')
    else:
@@ -47,15 +47,24 @@ def category_edit(request,category_id):
         try:
             user = User.objects.get(username=request.user.username)
             category = get_object_or_404(Category, pk=category_id)
+            goals_all = user.goal_set.all()
         except Exception as e:
             return HttpResponse("The user do not exist")
         if request.method == "POST":
              if request.POST.get("category_tipo"):
                   category.category_tipo = request.POST.get("category_tipo")
+             if request.POST.get("goal_add"):
+                  rem_goal = user.goal_set.get(pk=request.POST['goal_add'])
+                  category.goal.add(rem_goal)
+             if request.POST.get("goal_rem"):
+                  rem_goal = user.goal_set.get(pk=request.POST['goal_rem'])
+                  category.goal.remove(rem_goal)
              category.save()
-             return redirect_home(request.user.username)
+             if request.POST.get("deleted"):
+                  category.delete()
+             return HttpResponseRedirect("/category")
         else:
-            return render(request,'category/category_edit.html',{'category' : category})
+            return render(request,'category/category_edit.html',{'category' : category, 'goals_all' : goals_all})
     else:
         return HttpResponseRedirect("/login")
 
