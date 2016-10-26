@@ -48,6 +48,7 @@ def modify_comment(request, goal_id, comment_id, subgoal_id=None):
     goal = get_object_or_404(AbstractGoal, pk=goal_id)
     
     comment = get_object_or_404(Comment, pk=comment_id)
+    print comment_id
     if request.user.is_authenticated:
         if request.method == "POST":
             if request.POST.get("comment_text"):
@@ -60,8 +61,10 @@ def modify_comment(request, goal_id, comment_id, subgoal_id=None):
                 return redirect_goal(goal_id)
         else:
             if subgoal_id:
+                print "sub goal"
                 return render(request, 'commentary/modify_subcomment.html', {'goal': goal, 'comment': comment, 'supgoal_id': supgoal_id})
             else:
+                print "goal comun"
                 return render(request, 'commentary/modify_comment.html', {'goal': goal, 'comment': comment })
     else:
         return HttpResponseRedirect("/login")
