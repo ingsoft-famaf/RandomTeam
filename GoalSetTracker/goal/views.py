@@ -71,7 +71,8 @@ def detail_sub_goal(request, goal_id, subgoal_id):
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
             subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
-            return render(request, 'goal/detail_sub_goal.html', {'subgoal': subgoal})
+            comments = Comment.objects.all().filter(goal=subgoal_id).order_by('-create_date')
+            return render(request, 'goal/detail_sub_goal.html', {'goal': goal, 'subgoal': subgoal, 'comments': comments})
     return redirect_home(request.user)
 
 def modify_goal(request, goal_id):
@@ -93,5 +94,9 @@ def modify_goal(request, goal_id):
         else:
             return render(request, 'goal/modify_goal.html', {'goal': goal})
 
-def redirect_goal(id):
-    return HttpResponseRedirect("/goal/{}".format(id))
+def redirect_goal(id, subgoal_id=None):
+    if subgoal_id:
+        return HttpResponseRedirect("/goal/{}/subgoal/{}".format(id, subgoal_id))
+    else:
+        return HttpResponseRedirect("/goal/{}".format(id))
+
