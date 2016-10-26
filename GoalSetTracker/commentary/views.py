@@ -16,8 +16,8 @@ def new_comment(request, goal_id, subgoal_id=None):
     if subgoal_id:
         supgoal_id = goal_id
         goal_id = subgoal_id
-
     goal = get_object_or_404(AbstractGoal, pk=goal_id)
+
     if request.user.is_authenticated:
         try:
             user = User.objects.get(username=request.user.username)
@@ -42,10 +42,10 @@ def new_comment(request, goal_id, subgoal_id=None):
         return HttpResponseRedirect("/login")
 
 def modify_comment(request, goal_id, comment_id, subgoal_id=None):
-    goal = get_object_or_404(AbstractGoal, pk=goal_id)
     if subgoal_id:
         supgoal_id = goal_id
         goal_id = subgoal_id
+    goal = get_object_or_404(AbstractGoal, pk=goal_id)
     
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.user.is_authenticated:
@@ -59,7 +59,10 @@ def modify_comment(request, goal_id, comment_id, subgoal_id=None):
             else:
                 return redirect_goal(goal_id)
         else:
-            return render(request, 'commentary/modify_comment.html', {'goal': goal, 'comment': comment })
+            if subgoal_id:
+                return render(request, 'commentary/modify_subcomment.html', {'goal': goal, 'comment': comment, 'supgoal_id': supgoal_id})
+            else:
+                return render(request, 'commentary/modify_comment.html', {'goal': goal, 'comment': comment })
     else:
         return HttpResponseRedirect("/login")
 
