@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Modify Category </title>
+</head>
+    <h1> Modify Category:</h1>
+    <h3> Tipo actual de la categoria: {{catego.categoria_tipo}}</h3>
+  <body>
+     <form action="{% url 'category_edit' catego.id %}" method="post">{% csrf_token %}
+        <p> Tipo nuevo <input name="categoria_tipo" size=40> </p>
+        <p> <input type="submit" value="Submit"> </p
+    </form>
+  </body>
+</html>

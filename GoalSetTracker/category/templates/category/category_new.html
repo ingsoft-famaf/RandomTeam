@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> New Category </title>
+</head>
+    <h1> New Category </h1>
+  <body>
+     <form action="{% url 'category_new' %}" method="post">{% csrf_token %}
+        <p> Tipo <input name="categoria_tipo" size=40> </p>
+        <p> <input type="submit" value="Submit"> </p
+    </form>
+  </body>
+</html>
