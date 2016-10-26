@@ -9,6 +9,3 @@
 {% else %}
   <p>You dont have any categories</p>
 {% endif %}
-<form action="{% url 'category_new' %}" method="get">
-    <input type="submit" value="New Category" />
-</form>

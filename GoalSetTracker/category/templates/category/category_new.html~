@@ -7,7 +7,7 @@
     <h1> New Category </h1>
   <body>
      <form action="{% url 'category_new' %}" method="post">{% csrf_token %}
-        <p> Tipo <input name="category_tipo" size=40> </p>
+        <p> Tipo <input name="categoria_tipo" size=40> </p>
         <p> <input type="submit" value="Submit"> </p
     </form>
   </body>
