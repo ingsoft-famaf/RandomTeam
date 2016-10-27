@@ -101,6 +101,27 @@ def modify_goal(request, goal_id):
         else:
             return render(request, 'goal/modify_goal.html', {'goal': goal})
 
+def modify_sub_goal(request, goal_id, subgoal_id):
+    subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
+    goal = get_object_or_404(Goal, pk=goal_id)
+    # TODO chequear que son del usuario las metas y submetas
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.POST.get("finish_date"):
+                subgoal.finish_date = request.POST.get("finish_date")
+            if request.POST.get("goal_text"):
+                subgoal.goal_text = request.POST.get("goal_text")
+            if request.POST.get("create_date"):
+                subgoal.create_date = request.POST.get("create_date")
+            if request.POST.get("priority"):
+                subgoal.priority = request.POST.get("priority")
+            if request.POST.get("state"):
+                subgoal.state = request.POST.get("state")
+            subgoal.save()
+            return redirect_goal(goal_id, subgoal_id)
+        else:
+            return render(request, 'goal/modify_sub_goal.html', {'goal': goal, 'subgoal' : subgoal})
+
 def redirect_goal(id, subgoal_id=None):
     if subgoal_id:
         return HttpResponseRedirect("/goal/{}/subgoal/{}".format(id, subgoal_id))
