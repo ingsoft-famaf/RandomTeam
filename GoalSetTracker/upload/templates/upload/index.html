@@ -1,5 +1,5 @@
 
-<form action="{{ action }}" method="POST", enctype = "multipart/form-data">
+<form action="" method="POST", enctype = "multipart/form-data">
 <h2> Añadir Archivo </h2>
 
 {% if mensaje_error %}
@@ -7,8 +7,16 @@
 {% endif %}
 
 {% for field in form %}
-<br>    <h5>{{ field.label_tag }}</h5> {{ field }}
+<br>
+
+{% if not field.is_hidden %}
+<h5>{{ field.label_tag }}</h5> 
+{{ field }}
+{% else %}
+{{ field }}
+{% endif %}
+
 {% endfor %}
 <br> <h5> <button type='submit'>Save</button> </h5>
+
 {% csrf_token %}
-</form>
