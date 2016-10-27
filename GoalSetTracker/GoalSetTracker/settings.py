@@ -34,10 +34,14 @@ INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'goal.apps.GoalConfig',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'commentary.apps.CommentaryConfig',
 =======
     'category.apps.CategoryConfig',
 >>>>>>> Creada la app category
+=======
+    'category.apps.CategoryConfig',
+>>>>>>> 90cf83b375cce1b3901de3c6e3683b45b165ec78
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
