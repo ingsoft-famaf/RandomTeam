@@ -87,4 +87,7 @@ def delete_comment(request, goal_id, comment_id, subgoal_id=None):
     else:
         return HttpResponseRedirect("/login")
 
+<<<<<<< 88ee4c37128f5ac1efa1bc97570df51bf5bcf8da
 
+=======
+>>>>>>> se añadio el archivo eliminado en el commit anterior
