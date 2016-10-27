@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from login.views import redirect_home
-from goal.models import Goal
+from goal.models import AbstractGoal
 from .models import Category
 from django.template import loader
 
@@ -47,17 +47,17 @@ def category_edit(request,category_id):
         try:
             user = User.objects.get(username=request.user.username)
             category = get_object_or_404(Category, pk=category_id)
-            goals_all = user.goal_set.all()
+            goals_all = user.abstractgoal_set.all()
         except Exception as e:
             return HttpResponse("The user do not exist")
         if request.method == "POST":
              if request.POST.get("category_tipo"):
                   category.category_tipo = request.POST.get("category_tipo")
              if request.POST.get("goal_add"):
-                  rem_goal = user.goal_set.get(pk=request.POST['goal_add'])
+                  rem_goal = user.abstractgoal_set.get(pk=request.POST['goal_add'])
                   category.goal.add(rem_goal)
              if request.POST.get("goal_rem"):
-                  rem_goal = user.goal_set.get(pk=request.POST['goal_rem'])
+                  rem_goal = user.abstractgoal_set.get(pk=request.POST['goal_rem'])
                   category.goal.remove(rem_goal)
              category.save()
              if request.POST.get("deleted"):
