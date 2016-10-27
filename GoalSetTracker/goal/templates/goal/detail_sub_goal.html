@@ -5,7 +5,7 @@
 <h3>State {{ subgoal.state }}</h3>
 
 <h4>Modify Goal</h4>
-<form action="#" method="get">
+<form action="{% url 'modify_sub_goal' goal.id subgoal.id %}" method="get">
     <input type="submit" value="Modify Goal" />
 </form>
 

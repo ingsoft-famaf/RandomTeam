@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
-from goal.models import AbstractGoal
+from goal.models import AbstractGoal, Goal, SubGoal
 
 @csrf_protect
 def login(request):
@@ -58,7 +58,7 @@ def home(request, username="Anonymous"):
         if request.user.username == username:
             try:
                 user = User.objects.get(username=username)
-                goals = AbstractGoal.objects.filter(owner=user)
+                goals = Goal.objects.filter(owner=user)
             except Exception as e:
                 return HttpResponse("El usuario no existe")
             return render(request, 'login/home.html', {
