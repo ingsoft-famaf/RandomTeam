@@ -33,19 +33,8 @@ def category_new(request):
         try:
             user = User.objects.get(username=request.user.username)
         except Exception as e:
-<<<<<<< HEAD
-            return HttpResponse("El usuario no existe")
-<<<<<<< HEAD
-        return HttpResponse("estas en categorias")
-=======
-=======
             return HttpResponse("The user do not exist")
-<<<<<<< HEAD
->>>>>>> Congruencia de idioma en Category
-        if request.method == "POST":
-=======
         if request.method == "POST" and request.POST.get("category_tipo") != "" :
->>>>>>> categorias implementadas
              user.category_set.create(category_tipo=request.POST.get("category_tipo"))
              return HttpResponseRedirect("/category")
         else:
@@ -75,16 +64,7 @@ def category_edit(request,category_id):
                   category.delete()
              return HttpResponseRedirect("/category")
         else:
-<<<<<<< HEAD
-<<<<<<< HEAD
-            return render(request,'category/category_edit.html',{'catego' : catego})
->>>>>>> categorias agregadas, faltan relacionar categoria goals
-=======
-            return render(request,'category/category_edit.html',{'category' : category})
->>>>>>> Congruencia de idioma en Category
-=======
             return render(request,'category/category_edit.html',{'category' : category, 'goals_all' : goals_all})
->>>>>>> categorias implementadas
     else:
         return HttpResponseRedirect("/login")
 
