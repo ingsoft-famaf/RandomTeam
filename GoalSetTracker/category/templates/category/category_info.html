@@ -1,0 +1,13 @@
+<h1>{{ category.category_tipo }}</h1>
+<h3>Type: {{category.category_tipo}}</h3>
+<ul>
+{% for goal in category.goal.all %}
+    <li>{{ goal.goal_text }}</li>
+{% endfor %}
+</ul>
+<form action="{% url 'category_edit' category.id %}" method="get">
+    <input type="submit" value="Modify Category" />
+</form>
+<form action="{% url 'category'%}" method="get">
+    <input type="submit" value="Return categories" />
+</form>

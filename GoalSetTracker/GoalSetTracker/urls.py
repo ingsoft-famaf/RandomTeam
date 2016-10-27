@@ -40,4 +40,6 @@ urlpatterns = [
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/modify_comment/(?P<comment_id>[0-9]+)/$', comment_views.modify_comment, name='modify_comment'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
     url(r'^admin/', admin.site.urls),
+    url(r'^category/',include('category.urls')),
+    url(r'^admin/', admin.site.urls)
 ]
