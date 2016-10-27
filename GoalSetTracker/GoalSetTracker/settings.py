@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'goal.apps.GoalConfig',
     'commentary.apps.CommentaryConfig',
+    'category.app.CategoryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
