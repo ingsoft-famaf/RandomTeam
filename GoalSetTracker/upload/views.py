@@ -12,11 +12,12 @@ from goal.views import redirect_goal
 from login.views import redirect_home
 
 
-
 @csrf_protect
 def upload_img(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     error = None
+    flag = True
+    error2 = None
     if request.method == 'POST':
         form = forms.ArchivoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -25,13 +26,23 @@ def upload_img(request, goal_id):
             if ((not tiene_url) and (not tiene_file)) or (tiene_url and tiene_file):
                 error = "Debe tener url o archivo"
             else:
-                form.save()
-                return redirect_goal(goal_id)
+                
+                for file in os.listdir(join(MEDIA_ROOT, 'archivo/')):
+                    if file == form.cleaned_data['upload'].name:
+                        error2 = "Este archivo ya se encuenta en esta meta"
+                        flag = False
+                if flag:
+                #initial_path = form.cleaned_data['upload'].name
+                #new_path = os.path.join(str(goal.id), initial_path)
+                #os.rename(initial_path, new_path) 
+                    form.save()
+                    return redirect_goal(goal_id)
     else:
         form = forms.ArchivoForm(initial={'goal': goal_id})
     form.fields['goal'].widget = forms.HiddenInput()
     return render(request, "upload/index.html",{'goal': goal, "form":form, 
-                                                 "mensaje_error": error})
+                                                 "mensaje_error": error,
+                                                 "mensaje_error": error2})
                                                  #"action": reverse('add_file')})
 
 def archivo_list(request, goal_id):
