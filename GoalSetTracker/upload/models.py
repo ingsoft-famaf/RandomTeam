@@ -5,8 +5,8 @@ from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User  
 from goal.models import AbstractGoal
-
 #fs = FileSystemStorage(location='/home/upload')
+from goal.models import Goal
 
 class Archivo(models.Model):
     goal = models.ForeignKey(AbstractGoal, on_delete = models.CASCADE)
