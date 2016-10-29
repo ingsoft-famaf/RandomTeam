@@ -38,6 +38,7 @@ def new_user(request):
                                             email=email
                                             )
             user.save()
+            user = authenticate(username=username, password=password, email=email)
             login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')
