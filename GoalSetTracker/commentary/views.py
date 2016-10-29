@@ -49,7 +49,7 @@ def modify_comment(request, goal_id, comment_id, subgoal_id=None):
         supgoal_id = goal_id
         goal_id = subgoal_id
     goal = get_object_or_404(AbstractGoal, pk=goal_id)
-    
+
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.user.is_authenticated:
         if (request.user == goal.owner):
@@ -86,8 +86,3 @@ def delete_comment(request, goal_id, comment_id, subgoal_id=None):
             return redirect_home(request.user.username)
     else:
         return HttpResponseRedirect("/login")
-
-<<<<<<< 88ee4c37128f5ac1efa1bc97570df51bf5bcf8da
-
-=======
->>>>>>> se añadio el archivo eliminado en el commit anterior
