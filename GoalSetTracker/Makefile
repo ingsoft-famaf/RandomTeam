@@ -8,10 +8,9 @@ clean:
 	rm db.sqlite3
 
 update_models:
-	python manage.py makemigrations login
-	python manage.py makemigrations goal
-	python manage.py makemigrations commentary
+	python manage.py makemigrations "login" "goal" "commentary" "category"
 	python manage.py migrate
+	python manage.py loaddata social-config.json
 
 # Para crear un nuevo proyecto:
 # django-admin startproject project_name
