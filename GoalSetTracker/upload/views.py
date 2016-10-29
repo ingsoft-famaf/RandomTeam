@@ -15,6 +15,8 @@ from login.views import redirect_home
 @csrf_protect
 def upload_img(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
+    if not os.path.exists(join(MEDIA_ROOT, 'Archivo/'+str(goal_id))):
+        os.makedirs(join(MEDIA_ROOT, 'Archivo/'+str(goal_id)))
     error = None
     flag = True
     error2 = None
@@ -27,7 +29,7 @@ def upload_img(request, goal_id):
                 error = "Debe tener url o archivo"
             else:
                 
-                for file in os.listdir(join(MEDIA_ROOT, 'archivo/')):
+                for file in os.listdir(join(MEDIA_ROOT, 'Archivo/'+str(goal_id))):
                     if file == form.cleaned_data['upload'].name:
                         error2 = "Este archivo ya se encuenta en esta meta"
                         flag = False
