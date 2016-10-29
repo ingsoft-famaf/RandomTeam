@@ -38,16 +38,25 @@
     {{ comment.owner }} - {{ comment.create_date }}
     <br />
     <div class="comment-edit-delete" >
-    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>
+    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>"
     <a href="{% url 'delete_comment' goal.id comment.id %}" onclick="return confirm('Are you sure you want to delete the comment?')"
        style="text-decoration: none !important;">[delete]</a>
     </div>
     </span>
     </div>
 {% endfor %}
+
 </div>
 <br />
 
 <form action="{% url 'home' %}" method="get">
     <input type="submit" value="Back to homepage" />
+</form>
+<h4>Archivos</h4>
+
+<form action="{% url 'list_uploads' goal.id %}" method="get">
+    <input type="submit" value="File List" />
+</form>
+<form action="{% url 'add_file' goal.id %}" method="get">
+    <input type="submit" value="Add File" />
 </form>
