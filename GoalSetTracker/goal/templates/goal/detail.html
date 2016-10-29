@@ -1,3 +1,6 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
 <h1>{{ goal.goal_text }}</h1>
 <h3>Finish Date: {{ goal.finish_date }}</h3>
 <h3>Create Date: {{ goal.create_date }}</h3>
@@ -60,3 +63,4 @@
 <form action="{% url 'add_file' goal.id %}" method="get">
     <input type="submit" value="Add File" />
 </form>
+{% endblock %}
