@@ -4,7 +4,26 @@
 
 {% if goals %}
 
-    <h3>Goals</h3>
+    {% if actives %}
+        <h3>Actives Goals</h3>
+        <ul>
+        {% for goal in actives %}
+            <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <br></br>
+    {% if finished %}
+        <h3>Finished Goals</h3>
+        <h4>You have finished Goals, do you want to pospose any?</h4>
+        <ul>
+        {% for goal in actives %}
+            <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>All Goals</h3>
     <ul>
     {% for goal in goals %}
         <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>

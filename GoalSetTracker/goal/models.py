@@ -31,7 +31,7 @@ class AbstractGoal(models.Model):
         return self.goal_text
 
     def is_active(self):
-        return self.finish >= timezone.now()
+        return self.finish_date > timezone.now()
 
 @python_2_unicode_compatible
 class Goal(AbstractGoal):

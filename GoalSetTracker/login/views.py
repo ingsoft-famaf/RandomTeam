@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from goal.models import AbstractGoal, Goal, SubGoal
 
+
 @csrf_protect
 def login(request):
     # Si esta logueado lo redirecciono al home.
@@ -19,12 +20,14 @@ def login(request):
         password = request.POST.get("password")
         email = request.POST.get("email")
         if is_valid(request):
-            user = authenticate(username=username, password=password, email=email)
+            user = authenticate(username=username,
+                                password=password,
+                                email=email)
             if user is not None:
                 login_user(request, user)
                 return redirect_home(username)
-
     return render(request, 'login/login.html')
+
 
 @csrf_protect
 def new_user(request):
@@ -38,20 +41,24 @@ def new_user(request):
                                             email=email
                                             )
             user.save()
-            user = authenticate(username=username, password=password, email=email)
+            user = authenticate(username=username,
+                                password=password,
+                                email=email)
             login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')
+
 
 def logout(request):
     logout_user(request)
     return HttpResponseRedirect("/login")
 
+
 def is_valid(request):
-    return (request.POST.get("username")
-            and request.POST.get("password")
-            and request.POST.get("mail")
-            ) is not ''
+    return (request.POST.get("username") and
+            request.POST.get("password") and
+            request.POST.get("mail")) is not ''
+
 
 def home(request, username="Anonymous"):
     if request.user.is_authenticated:
@@ -62,15 +69,20 @@ def home(request, username="Anonymous"):
                 goals = Goal.objects.filter(owner=user)
             except Exception as e:
                 return HttpResponse("El usuario no existe")
+            actives = [goal for goal in goals if goal.is_active()]
+            finished = [goal for goal in goals if not goal.is_active()]
             return render(request, 'login/home.html', {
-                'user'  : username,
-                'goals' : goals,
-            })
+                'user': username,
+                'goals': goals,
+                'actives': actives,
+                'finished': finished,
+                })
         else:
             # El usuario quiere ingresar a otro home que no es el suyo.
             return redirect_home(request.user.username)
     else:
         return HttpResponseRedirect("/login")
+
 
 def redirect_home(username):
     return HttpResponseRedirect("/home/{}".format(username))
