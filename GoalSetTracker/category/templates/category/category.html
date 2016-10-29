@@ -1,0 +1,17 @@
+<h1> Welcome to your categories </h1>
+<h2> Your categories are: </h2>
+{% if category_all %}
+  <ul>
+  {% for category in category_all %}
+      <li><a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>You dont have any categories</p>
+{% endif %}
+<form action="{% url 'category_new' %}" method="get">
+    <input type="submit" value="New Category" />
+</form>
+<form action="{% url 'home' %}" method="get">
+    <input type="submit" value="Return home" />
+</form>

@@ -1,0 +1,53 @@
+<h1>{{ goal.goal_text }}</h1>
+<h3>Finish Date: {{ goal.finish_date }}</h3>
+<h3>Create Date: {{ goal.create_date }}</h3>
+<h3>Priority {{ goal.priority }}</h3>
+<h3>State {{ goal.state }}</h3>
+<ul>
+{% for subgoal in goal.subgoal_set.all %}
+    <li><a href="{% url 'detail_sub_goal' goal.id subgoal.id%}" name=>{{ subgoal.goal_text }}</a></li>
+{% endfor %}
+</ul>
+<h4>New Sub Goal</h4>
+<form action="{% url 'new_sub_goal' goal.id %}" method="get">
+    <input type="submit" value="New Sub Goal" />
+</form>
+<h4>Modify Goal</h4>
+<form action="{% url 'modify_goal' goal.id %}" method="get">
+    <input type="submit" value="Modify Goal" />
+</form>
+<h4>Delete Goal</h4>
+<form action="{% url 'delete_goal' goal.id %}" method="get">
+    <input type="submit" value="Delete Goal" />
+</form>
+
+<h4>Make a Comment</h4>
+<form action="{% url 'new_comment' goal.id %}" method="get">
+    <input type="submit" value="New Comment" />
+</form>
+<br />
+
+<h4>Comments</h4>
+<div class="comment list" style="background-color:white; width:40%;
+                                    border-radius:3px">
+{% for comment in comments %}
+    <div class="comment" style="border: 1px solid #777777; border-radius: 5px;
+                                 padding: 0px 0px 0px 10px; margin:10px 0px;">
+    <p>{{ comment.text }}</p>
+    <span class="comment-subtext" style="font-size: 11px;">
+    {{ comment.owner }} - {{ comment.create_date }}
+    <br />
+    <div class="comment-edit-delete" >
+    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>
+    <a href="{% url 'delete_comment' goal.id comment.id %}" onclick="return confirm('Are you sure you want to delete the comment?')"
+       style="text-decoration: none !important;">[delete]</a>
+    </div>
+    </span>
+    </div>
+{% endfor %}
+</div>
+<br />
+
+<form action="{% url 'home' %}" method="get">
+    <input type="submit" value="Back to homepage" />
+</form>

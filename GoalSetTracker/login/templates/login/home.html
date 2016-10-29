@@ -1,0 +1,24 @@
+{{ user }}
+{% if goals %}
+    <ul>
+    {% for goal in goals %}
+        <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay metas</p>
+{% endif %}
+<form action="{% url 'logout' %}" method="get">
+    <input type="submit" value="Logout" />
+</form>
+
+
+<h4>Goals</h4>
+<form action="{% url 'new_goal' %}" method="get">
+    <input type="submit" value="New Goal" />
+</form>
+
+<h4>Categories</h4>
+<form action="{% url 'category' %}" method="get">
+    <input type="submit" value="Go to categories" />
+</form>
