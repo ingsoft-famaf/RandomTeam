@@ -38,12 +38,21 @@ urlpatterns = [
     url(r'^home/(?P<username>[\w.@+-]+)/$', login_views.home, name='home'),
     url(r'^home/$', login_views.home, name='home'),
     url(r'^new_goal$', goal_views.new_goal, name='new_goal'),
-    url(r'^goal/(?P<goal_id>[0-9]+)/delete$', goal_views.delete_goal, name='delete_goal'),
+
+    # Goal
     url(r'^goal/(?P<goal_id>[0-9]+)/$', goal_views.detail_goal, name='detail'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/delete$', goal_views.delete_goal, name='delete_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/modify$', goal_views.modify_goal, name='modify_goal'),
+    # Goal - comments
+    url(r'^goal/(?P<goal_id>[0-9]+)/new_comment$', comment_views.new_comment, name='new_comment'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/modify_comment/(?P<comment_id>[0-9]+)/$', comment_views.modify_comment, name='modify_comment'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
+
+    # Sub goal
     url(r'^goal/(?P<goal_id>[0-9]+)/new_sub_goal$', goal_views.new_sub_goal, name='new_sub_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)$', goal_views.detail_sub_goal, name='detail_sub_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/modify$', goal_views.modify_sub_goal, name='modify_sub_goal'),
+    # Sub goal - comments
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/new_comment$', comment_views.new_comment, name='new_comment'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/modify_comment/(?P<comment_id>[0-9]+)/$', comment_views.modify_comment, name='modify_comment'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
