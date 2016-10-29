@@ -41,4 +41,6 @@ urlpatterns = [
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
     url(r'^category/',include('category.urls')),
     url(r'^admin/', admin.site.urls),
+    # Allauth URLS
+    url(r'^accounts/', include('allauth.urls')),
 ]
