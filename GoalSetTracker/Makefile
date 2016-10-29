@@ -5,6 +5,7 @@ clean:
 	rm */*.pyc
 	rm -rf goal/migrations
 	rm -rf commentary/migrations
+	rm -rf category/migrations
 	rm db.sqlite3
 
 update_models:
