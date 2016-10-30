@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from goal.models import AbstractGoal, Goal, SubGoal
+from django.db import IntegrityError
 
 @csrf_protect
 def login(request):
@@ -38,6 +39,7 @@ def new_user(request):
                                             email=email
                                             )
             user.save()
+            user = authenticate(username=username, password=password, email=email)
             login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')

@@ -1,0 +1,33 @@
+[   
+    {
+        "model": "sites.site",
+        "pk": 1,
+        "fields": {
+            "domain": "localhost:8000",
+            "name": "Social Login"
+        }
+    },
+    {
+        "model": "socialaccount.socialapp",
+        "pk": 1,
+        "fields": {
+            "provider": "google",
+            "name": "Google Login",
+            "client_id": "9899533394-qu35v0rssqobrat4rv15r6n28u3n3mj7.apps.googleusercontent.com",
+            "secret": "J2XUVtwOQCV_MIvFI0-APo_q",
+            "key": "", "sites": [1]
+        }
+    },
+    {
+        "model": "socialaccount.socialapp",
+        "pk": 2,
+        "fields": {
+            "provider": "facebook",
+            "name": "Facebook login",
+            "client_id": "361940210812368",
+            "secret": "4907c06085adc598247ae0b4ed9ed711",
+            "key": "",
+            "sites": [1]
+        }
+    }
+]

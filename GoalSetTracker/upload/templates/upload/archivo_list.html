@@ -1,0 +1,63 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+	<h2> Archivos de la meta </h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>id</td>
+			<td>titulo</td>
+			<td>descripcion</td>
+			<td>upload</td>
+			<td>url</td>
+			<td>Fecha</td>
+			<td>Acciones</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		{% if archivos  %}
+			{% for archivo in archivos %}
+			<tr>
+				<td>{{ archivo.id }}</td>
+				<td>{{ archivo.titulo }}</td>
+				<td>{{ archivo.descripcion }}</td>
+				{% if archivo.upload %}
+					<td><a href="{{  archivo.upload.url }}" >
+				 		{{ archivo.upload.name }} </a></td>
+				 {% else %}
+				 	<td> </a></td>
+				{% endif %}
+
+				<td><a href="{{ archivo.url }}" target="_blank">{{ archivo.url }} </a></td>
+		
+				<td>{{ archivo.fecha }}</td>
+				<td> <a  href="{% url 'edit_upload' goal.id archivo.id  %}">
+					Editar </a>
+					<a  href="{% url 'remove_upload' goal.id archivo.id  %}">
+					Eliminar </a>
+				</td>
+			{% endfor %}
+			</tr>
+		{% else %}
+			<h3> No hay archivos adjuntos a la meta </h3>
+		{% endif %}
+		</form>
+		<form action="{% url 'home' %}" method="get">
+    		<input type="submit" value="Back to homepage" />
+		</form>
+	</tbody>
+
+	
+<body>
+</html>
+{% endblock %}
