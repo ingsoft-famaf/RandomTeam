@@ -36,16 +36,21 @@ def new_user(request):
         password = request.POST.get("password")
         email = request.POST.get("email")
         if is_valid(request):
-            user = User.objects.create_user(username=username,
-                                            password=password,
-                                            email=email
-                                            )
-            user.save()
-            user = authenticate(username=username,
-                                password=password,
-                                email=email)
-            login_user(request, user)
-            return redirect_home(username)
+            try:
+                user = User.objects.get(username=username)
+            except Exception as e:
+                user = None
+            if user == None:
+                user = User.objects.create_user(username=username,
+                                                password=password,
+                                                email=email
+                                                )
+                user.save()
+                user = authenticate(username=username,
+                                    password=password,
+                                    email=email)
+                login_user(request, user)
+                return redirect_home(username)
     return HttpResponseRedirect('/login')
 
 
