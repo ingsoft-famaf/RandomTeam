@@ -2,22 +2,149 @@
 
 {% block content %}
 
+<style>
+table {
+    border-collapse: collapse;
+    width: 49%;
+
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+table.center {
+  margin-left:auto;
+  margin-right:auto;
+  width: 80%;
+
+}
+
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+table.absolute {
+    position: absolute;
+    right: 0px;
+    top: 84px;
+    width: 49%;
+    height: 120px;
+}
+table.left {
+    position: absolute;
+    left: 0px;
+    top: 84px;
+    width: 49%;
+    height: 120px;
+}
+</style>
 {% if goals %}
+        <table class="left">
+          <thead>
+            <tr>
+                <th>
+                    <h3>Actives Goals</h3>
+                </th>
+                <th>
+                    <h3>Finish Date</h4>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% if actives %}
+                  {% for goal in actives %}
+                      <tr>
+                        <td>
+                            <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+                        </td>
+                        <td>
+                            <i> {{goal.finish_date}}
+                        </td>
+                      </tr>
+                  {% endfor %}
+              {% else %}
+                  <tr>
+                  <td>
+                      <i> No Actives Goals
+                  </td>
+                  </tr>
+              {% endif %}
+          </tbody>
+        </table>
+    <br></br>
+    {% if finished %}
+        <table class="absolute">
+          <thead>
+            <tr>
+                <th>
+                    <h3>Finished Goals</h3>
+                </th>
+                <th>
+                    <h3>Do you want to pospose the goals?</h4>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for goal in finished %}
+                  <tr>
+                    <td>
+                      <a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a>
+                    </td>
+                    <td>
+                      <a href="{% url 'modify_goal' goal.id %}"> Pospose</a>
+                    </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    {% endif %}
+    <br></br>
+    <br></br>
 
-    <h3>Goals</h3>
-    <ul>
-    {% for goal in goals %}
-        <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+    <table class="center">
+      <thead>
+        <tr>
+            <th>
+                <h3>All Goals</h3>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for goal in finished %}
+              <tr>
+                <td>
+                  <a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a>
+                </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>
 
-    {% endfor %}
-    </ul>
 {% else %}
-    <p>You dont have Goals</p>
+    <h3><p>You dont have Goals</p></h3>
 {% endif %}
 
 <br></br>
-<form action="{% url 'new_goal' %}" method="get">
-    <input type="submit" value="New Goal" />
+<form class="form" action="{% url 'new_goal' %}" method="get">
+    <input class="button" type="submit" value="New Goal" />
 </form>
 
 
