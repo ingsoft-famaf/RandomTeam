@@ -49,14 +49,15 @@
 </div>
 <br />
 
-<form action="{% url 'home' %}" method="get">
-    <input type="submit" value="Back to homepage" />
-</form>
-<h4>Archivos</h4>
-
+<h4>Files</h4>
 <form action="{% url 'list_uploads' goal.id %}" method="get">
     <input type="submit" value="File List" />
 </form>
 <form action="{% url 'add_file' goal.id %}" method="get">
     <input type="submit" value="Add File" />
+</form>
+<br />
+
+<form action="{% url 'home' %}" method="get">
+    <input type="submit" value="Back to homepage" />
 </form>

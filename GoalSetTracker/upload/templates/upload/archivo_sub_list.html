@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-	<h2> Archivos de la meta </h2>
+	<h2> Archivos de la Submeta </h2>
 
 <table class="table table-bordered">
 	<thead>
@@ -41,15 +41,15 @@
 				<td><a href="{{ archivo.url }}" target="_blank">{{ archivo.url }} </a></td>
 		
 				<td>{{ archivo.fecha }}</td>
-				<td> <a  href="{% url 'edit_upload' goal.id archivo.id  %}">
+				<td> <a  href="{% url 'edit_sub_upload' supgoal_id goal.id archivo.id  %}">
 					Editar </a>
-					<a  href="{% url 'remove_upload' goal.id archivo.id  %}">
+					<a  href="{% url 'remove_sub_upload' supgoal_id goal.id archivo.id  %}">
 					Eliminar </a>
 				</td>
 			{% endfor %}
 			</tr>
 		{% else %}
-			<h3> No hay archivos adjuntos a la meta </h3>
+			<h3> No hay archivos adjuntos a la submeta </h3>
 		{% endif %}
 		</form>
 		<form action="{% url 'home' %}" method="get">

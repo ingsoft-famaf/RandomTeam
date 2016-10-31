@@ -6,10 +6,12 @@ clean:
 	rm -rf goal/migrations
 	rm -rf commentary/migrations
 	rm -rf category/migrations
+	rm -rf upload/migrations
 	rm db.sqlite3
+	rm -rf media/Archivo
 
 update_models:
-	python manage.py makemigrations "login" "goal" "commentary" "category"
+	python manage.py makemigrations "login" "goal" "commentary" "category" "upload"
 	python manage.py migrate
 	python manage.py loaddata social-config.json
 
