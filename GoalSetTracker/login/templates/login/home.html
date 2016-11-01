@@ -89,7 +89,7 @@ table.left {
               {% endif %}
           </tbody>
         </table>
-    <br></br>
+        <br></br>
     {% if finished %}
         <table class="absolute">
           <thead>
@@ -117,8 +117,17 @@ table.left {
         </table>
     {% endif %}
     <br></br>
-    <br></br>
-
+    
+    {% if actives > finished %}
+        {% for goal in actives %}
+        <br></br>
+        {% endfor %}
+    {% else %}
+        {% for goal in finished %}
+        <br></br>
+        {% endfor %}
+    {% endif %}
+    
     <table class="center">
       <thead>
         <tr>
