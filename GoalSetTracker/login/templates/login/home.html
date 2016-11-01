@@ -20,13 +20,13 @@ th {
     background-color: #4CAF50;
     color: white;
 }
+
 table.center {
   margin-left:auto;
   margin-right:auto;
   width: 80%;
 
 }
-
 
 .button {
     background-color: #4CAF50;
@@ -123,7 +123,7 @@ table.left {
       <thead>
         <tr>
             <th>
-                <h3>All Goals</h3>
+                <h3>Goals</h3>
             </th>
             <th>
                 <h3>Finish Date</h3>
@@ -134,7 +134,7 @@ table.left {
         </tr>
       </thead>
       <tbody>
-          {% for goal in goals %}
+          {% for goal in goals_f %}
               <tr>
                 <td>
                   <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
@@ -143,18 +143,54 @@ table.left {
                   <i> {{goal.finish_date}}
                 </td>
                 <td>
-                  <ul>
-                      <li>
-                         {% for category in goal.category.all %}
-                         <a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a>
+                       <i>{% for category in goal.category_set.all %}
+                         <li><a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a></li>
                          {% endfor %}
-                      </li>
-                  </ul>
                 </td>
               </tr>
           {% endfor %}
       </tbody>
     </table>
+    <br></br>
+    <br></br>
+        
+       <form action="{% url 'home' user %}" method="post">{% csrf_token %}
+       <table class="center">
+       <thead>
+       <tr>
+            <th>
+                <h2>Select categories to filter</h2>
+            </th>
+            <th>
+                <h2>Select the way to sort</h2>
+            </th>
+       </tr>
+       </thead>
+       <tbody>
+            <tr>
+                <td>
+                    {% if categories%}
+                    <ul>
+                        {% for category in categories %}
+                        <input type="checkbox" name="category_filter[]" id="category_filter{{ forloop.counter }}" value="{{ category.id }}"> 
+                        <label for="category_filter{{ forloop.counter }}">{{ category.category_tipo }}</label><br />
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h3><p>You dont have any Category to filter</p></h3>
+                    {% endif %}
+                </td>
+                <td>
+                    <p><input type="radio" name="sort" value="A-Z" checked> A-Z </p>
+                    <p><input type="radio" name="sort" value="Z-A"> Z-A </p>
+                    <p><input type="radio" name="sort" value="FECHA_N"> RECENT  </p>
+                    <p><input type="radio" name="sort" value="FECHA_L"> LAST </p>
+                </td>
+            </tr>
+       </tbody>
+       </table>
+              <input class="button" type="submit" value="Filtrar" />
+              </form>
 
 {% else %}
     <h3><p>You dont have Goals</p></h3>

@@ -17,7 +17,7 @@
         <ul>
             {% for goal in category.goal.all %}
               <input type="checkbox" name="goal_rem[]" id="goal_rem{{ forloop.counter }}" value="{{ goal.id }}"/> 
-              <label for="goal_rem{{ forloop.counter }}">{{ goal.goal_text }}</label><br />
+              <label for="goal_rem{{ forloop.counter }}">{{ goal.goal_text }}</label><br/>
             {% endfor %}
         </ul>
         <p> Goals that can be atached your category: </p>

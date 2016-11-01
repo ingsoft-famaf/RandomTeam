@@ -56,11 +56,11 @@ def category_edit(request,category_id):
              if request.POST.getlist('goal_add[]'):
                   add_goal_list = request.POST.getlist('goal_add[]')
                   for add_goal in add_goal_list:
-                         category.goal.add(add_goal)
+                         category.goal.add(user.abstractgoal_set.get(pk=add_goal))
              if request.POST.getlist('goal_rem[]'):
                   rem_goal_list = request.POST.getlist('goal_rem[]')
                   for rem_goal in rem_goal_list:
-                         category.goal.remove(rem_goal)
+                         category.goal.remove(user.abstractgoal_set.get(pk=rem_goal))
              category.save()
              if request.POST.get("deleted"):
                   category.delete()
