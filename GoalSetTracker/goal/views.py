@@ -6,6 +6,7 @@ from login.views import redirect_home
 from .models import Goal, SubGoal
 from commentary.models import Comment
 
+
 def new_goal(request):
     if request.user.is_authenticated:
         try:
@@ -17,18 +18,19 @@ def new_goal(request):
             if finish_date == '':
                 finish_date = timezone.now()
             goal = Goal.objects.create(goal_text=request.POST.get("goal_text"),
-                                 finish_date=finish_date,
-                                 create_date=timezone.now(),
-                                 priority = request.POST.get("priority"),
-                                 state = request.POST.get("state"),
-                                 owner=user
-                                 )
+                                       finish_date=finish_date,
+                                       create_date=timezone.now(),
+                                       priority=request.POST.get("priority"),
+                                       state=request.POST.get("state"),
+                                       owner=user
+                                       )
             goal.save()
             return redirect_home(request.user.username)
         else:
             return render(request, 'goal/new_goal.html')
     else:
         return HttpResponseRedirect("/login")
+
 
 def new_sub_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
@@ -39,7 +41,8 @@ def new_sub_goal(request, goal_id):
                 finish_date = timezone.now()
             if request.user == goal.owner:
                 subgoal = SubGoal.objects.create(
-                                        goal_text=request.POST.get("goal_text"),
+                                        goal_text=request.POST
+                                                         .get("goal_text"),
                                         finish_date=finish_date,
                                         create_date=timezone.now(),
                                         priority=request.POST.get("priority"),
@@ -53,6 +56,7 @@ def new_sub_goal(request, goal_id):
     else:
         return HttpResponseRedirect("/login")
 
+
 def delete_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     if request.user.is_authenticated:
@@ -65,22 +69,30 @@ def delete_goal(request, goal_id):
     else:
         return HttpResponseRedirect("/login")
 
+
 def detail_goal(request, goal_id):
     if request.user.is_authenticated:
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
-            comments = Comment.objects.all().filter(goal=goal).order_by('-create_date')
-            return render(request, 'goal/detail.html', {'goal': goal, 'comments': comments})
+            comments = Comment.objects.all().filter(goal=goal)
+                                            .order_by('-create_date')
+            return render(request, 'goal/detail.html',
+                          {'goal': goal, 'comments': comments})
     return redirect_home(request.user)
+
 
 def detail_sub_goal(request, goal_id, subgoal_id):
     if request.user.is_authenticated:
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
             subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
-            comments = Comment.objects.all().filter(goal=subgoal_id).order_by('-create_date')
-            return render(request, 'goal/detail_sub_goal.html', {'goal': goal, 'subgoal': subgoal, 'comments': comments})
+            comments = Comment.objects.all().filter(goal=subgoal_id)
+                                            .order_by('-create_date')
+            return render(request, 'goal/detail_sub_goal.html',
+                          {'goal': goal, 'subgoal': subgoal,
+                           'comments': comments})
     return redirect_home(request.user)
+
 
 def modify_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
@@ -101,6 +113,7 @@ def modify_goal(request, goal_id):
         else:
             return render(request, 'goal/modify_goal.html', {'goal': goal})
 
+
 def modify_sub_goal(request, goal_id, subgoal_id):
     subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
     goal = get_object_or_404(Goal, pk=goal_id)
@@ -120,10 +133,13 @@ def modify_sub_goal(request, goal_id, subgoal_id):
             subgoal.save()
             return redirect_goal(goal_id, subgoal_id)
         else:
-            return render(request, 'goal/modify_sub_goal.html', {'goal': goal, 'subgoal' : subgoal})
+            return render(request, 'goal/modify_sub_goal.html',
+                          {'goal': goal, 'subgoal': subgoal})
+
 
 def redirect_goal(id, subgoal_id=None):
     if subgoal_id:
-        return HttpResponseRedirect("/goal/{}/subgoal/{}".format(id, subgoal_id))
+        return HttpResponseRedirect("/goal/{}/subgoal/{}"
+                                    .format(id, subgoal_id))
     else:
         return HttpResponseRedirect("/goal/{}".format(id))
