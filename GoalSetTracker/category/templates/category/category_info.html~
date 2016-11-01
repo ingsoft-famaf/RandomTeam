@@ -15,4 +15,3 @@
 <form action="{% url 'category'%}" method="get">
     <input type="submit" value="Return categories" />
 </form>
-{% endblock %}

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <title> Welcome to your categories </title>
 </head>
-       <h1> Welcome to your categories </h1>
+<h1> Welcome to your categories </h1>
 <h2> Your categories are: </h2>
 {% if category_all %}
   <ul>

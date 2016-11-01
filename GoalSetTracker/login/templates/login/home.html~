@@ -146,7 +146,7 @@ table.left {
                   <ul>
                       <li>
                          {% for category in goal.category.all %}
-                         <a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a>
+                         {{ category.category_text }}<
                          {% endfor %}
                       </li>
                   </ul>
