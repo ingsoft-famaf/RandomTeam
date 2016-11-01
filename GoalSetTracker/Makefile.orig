@@ -1,0 +1,41 @@
+run:
+	python manage.py runserver
+
+clean:
+	rm */*.pyc
+	rm -rf goal/migrations
+	rm -rf commentary/migrations
+	rm -rf category/migrations
+	rm -rf upload/migrations
+	rm db.sqlite3
+<<<<<<< HEAD
+	rm -rf media/Archivo
+=======
+	rm -rf media
+>>>>>>> ed2797dc5d3984baad48eae9aa9a1d5fa76462a7
+
+update_models:
+	python manage.py makemigrations "login" "goal" "commentary" "category" "upload"
+	python manage.py migrate
+	python manage.py loaddata social-config.json
+
+# Para crear un nuevo proyecto:
+# django-admin startproject project_name
+
+# Para crear una nueva app
+# python manage.py startapp app_name
+
+# Crear
+# q = Goal(goal_text="TEST", finish_date=timezone.now())
+# q.save()
+# q.subgoal_set.create(sub_goal_text="SubTest1")
+
+# Crear
+# user = User(username="fran", password="fran", mail="fran")
+# user.save()
+# user.goal_set.create(goal_text="TEST", finish_date=timezone.now(), create_date=timezone.now(), priority="H", state="PROGRESS", categoria="SAMPLE")
+
+# q.choice_set.create(sub_goal_text='SUB TEST1')
+# q = SubGoal(sub_goal_text="SUBBBTEST")
+
+# user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')

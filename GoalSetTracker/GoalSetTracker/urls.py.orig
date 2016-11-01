@@ -45,14 +45,19 @@ urlpatterns = [
     # Goal
     url(r'^goal/(?P<goal_id>[0-9]+)/$', goal_views.detail_goal, name='detail'),
     url(r'^goal/(?P<goal_id>[0-9]+)/delete$', goal_views.delete_goal, name='delete_goal'),
-
     url(r'^goal/(?P<goal_id>[0-9]+)/modify$', goal_views.modify_goal, name='modify_goal'),
+<<<<<<< HEAD
+    url(r'^goal/(?P<goal_id>[0-9]+)/new_comment$', comment_views.new_comment, name='new_comment'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/modify_comment/(?P<comment_id>[0-9]+)/$', comment_views.modify_comment, name='modify_comment'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
+=======
     # Goal - comments
     url(r'^goal/(?P<goal_id>[0-9]+)/new_comment$', comment_views.new_comment, name='new_comment'),
     url(r'^goal/(?P<goal_id>[0-9]+)/modify_comment/(?P<comment_id>[0-9]+)/$', comment_views.modify_comment, name='modify_comment'),
     url(r'^goal/(?P<goal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
 
     # Sub goal
+>>>>>>> ed2797dc5d3984baad48eae9aa9a1d5fa76462a7
     url(r'^goal/(?P<goal_id>[0-9]+)/new_sub_goal$', goal_views.new_sub_goal, name='new_sub_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)$', goal_views.detail_sub_goal, name='detail_sub_goal'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/modify$', goal_views.modify_sub_goal, name='modify_sub_goal'),
@@ -62,11 +67,10 @@ urlpatterns = [
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/delete_comment/(?P<comment_id>[0-9]+)/$', comment_views.delete_comment, name='delete_comment'),
     url(r'^category/',include('category.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^category/',include('category.urls')),
+    url(r'^admin/', admin.site.urls),
     # Allauth URLS
     url(r'^accounts/', include('allauth.urls')),
     url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL[1:]), upload_views.protected_serve, {'file_root': settings.MEDIA_ROOT}),
-    url(r'^$', RedirectView.as_view(url='/upload/media/', permanent=True)),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
     

@@ -37,7 +37,6 @@
     </span>
     </div>
 {% endfor %}
-
 </div>
 <h4>Files</h4>
 <form action="{% url 'list_sub_uploads' goal.id subgoal.id  %}" method="get">
@@ -47,4 +46,11 @@
     <input type="submit" value="Add File" />
 </form>
 <br />
+<<<<<<< HEAD
+
+<form action="{% url 'home' %}" method="get">
+    <input type="submit" value="Back to homepage" />
+</form>
+=======
 {% endblock %}
+>>>>>>> ed2797dc5d3984baad48eae9aa9a1d5fa76462a7
