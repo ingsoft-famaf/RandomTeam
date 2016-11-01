@@ -74,8 +74,7 @@ def detail_goal(request, goal_id):
     if request.user.is_authenticated:
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
-            comments = Comment.objects.all().filter(goal=goal)
-                                            .order_by('-create_date')
+            comments = Comment.objects.all().filter(goal=goal).order_by('-create_date')
             return render(request, 'goal/detail.html',
                           {'goal': goal, 'comments': comments})
     return redirect_home(request.user)
@@ -86,8 +85,7 @@ def detail_sub_goal(request, goal_id, subgoal_id):
         goal = get_object_or_404(Goal, pk=goal_id)
         if request.user == goal.owner:
             subgoal = get_object_or_404(SubGoal, pk=subgoal_id)
-            comments = Comment.objects.all().filter(goal=subgoal_id)
-                                            .order_by('-create_date')
+            comments = Comment.objects.all().filter(goal=subgoal_id).order_by('-create_date')
             return render(request, 'goal/detail_sub_goal.html',
                           {'goal': goal, 'subgoal': subgoal,
                            'comments': comments})
