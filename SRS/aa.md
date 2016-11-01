@@ -65,6 +65,213 @@ El sistema contará con un sistema de alerta para indicarle al usuario que una m
     2. El sistema le notifica al Usuario que la meta finalizó.
 * Escenario excepcionales:
 
+* Caso de uso 6: Adherir Archivo a la meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que desea agregar un archivo.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(Add File).
+	4. El sistema abre un formulario para llenar con las caracteristicas.
+	5. El usuario llena los campos correspondientes y hace clink en el boton(Save).
+	6. El sistema agrega el archivo y redirecciona al usuario a la meta.
+* Escenarios excepcionales:
+	5. a) El usuario quiere agregar un archivo que ya existe en la meta
+		* El sistema informa que "Este archivo ya se encuenta en esta meta"
+
+* Caso de uso 7: Adherir URL de archivo extraido del navegador
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que desea agregar un archivo.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(Add File).
+	4. El sistema abre un formulario para llenar con las caracteristicas.
+	5. El usuario llena los campos correspondientes y hace clink en el boton(Save).
+	6. El sistema agrega el archivo y redirecciona al usuario a la meta.
+* Escenarios excepcionales:
+	5. a) El usuario ingresa una URL no valida
+		* El sistema informa que "Url no valida"
+	5. b) El usuario ingresa el url y un archivo del disco o no ingresa ninguno
+		* El sistema informa que "Debe tener url o archivo"
+
+* Caso de uso 8: Adherir Archivo a la submeta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar en dentro de la meta.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que desea agregar un archivo.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(Add File).
+	4. El sistema abre un formulario para llenar con las caracteristicas.
+	5. El usuario llena los campos correspondientes y hace clink en el boton(Save).
+	6. El sistema agrega el archivo y redirecciona al usuario a la submeta.
+* Escenarios excepcionales:
+	5. a) El usuario quiere agregar un archivo que ya existe en la submeta
+		* El sistema informa que "Este archivo ya se encuenta en esta meta"
+
+* Caso de uso 9: Adherir URL de archivo extraido del navegador
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar en dentro de la meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que desea agregar un archivo.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(Add File).
+	4. El sistema abre un formulario para llenar con las caracteristicas.
+	5. El usuario llena los campos correspondientes y hace clink en el boton(Save).
+	6. El sistema agrega el archivo y redirecciona al usuario a la meta.
+* Escenarios excepcionales:
+	5. a) El usuario ingresa una URL no valida
+		* El sistema informa que "Url no valida"
+	5. b) El usuario ingresa el url y un archivo del disco o no ingresa ninguno
+		* El sistema informa que "Debe tener url o archivo"
+
+* Caso de uso 10: Ver lista de archivos de una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que desea ver los archivos.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+* Escenarios excepcionales:
+	5. a) 
+		* El sistema informa que "No hay archivos adjuntos a la meta"
+
+* Caso de uso 11: Ver lista de archivos de una submeta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar dentro de meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que desea ver los archivos.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha submeta.
+* Escenarios excepcionales:
+	5. a) 
+		* El sistema informa que "No hay archivos adjuntos a la submeta"
+
+
+* Caso de uso 12: Editar archivo de una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que contiene el archivo a modificar.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+	5. El usuario hace click en editar del archivo que quiere editar.
+	6. El Sistema redirecciona al formulario con los campos llenos.
+	7. El usuario modifica el archivo la meta y hace click en el boton(Save).
+	8. El sistema modifica dicho archivo y lo redirecciona a la meta.
+* Escenarios excepcionales:
+	7. a) El usuario llena mal los campos. 
+		* El sistema informa que "Debe tener url o archivo" o "Este archivo ya se encuenta en esta meta"
+			o "Url no valida"
+
+* Caso de uso 13: Editar archivo de una submeta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar dentro de meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que desea ver los archivos.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha submeta.
+	5. El usuario hace click en editar del archivo que quiere editar.
+	6. El Sistema redirecciona al formulario con los campos llenos.
+	7. El usuario modifica el archivo la submeta y hace click en el boton(Save).
+	8. El sistema modifica dicho archivo y lo redirecciona a la submeta.
+* Escenarios excepcionales:
+	7. a) El usuario llena mal los campos. 
+		* El sistema informa que "Debe tener url o archivo" o "Este archivo ya se encuenta en esta meta"
+			o "Url no valida"
+
+* Caso de uso 14: Eliminar archivo de una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que contiene el archivo a eliminar.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+	5. El usuario hace click en eliminar del archivo que quiere editar.
+	6. El sistema modifica dicho archivo y lo redirecciona a la meta.
+* Escenarios excepcionales:
+	4. a) 
+		* El sistema informa que "No hay archivos adjuntos a la meta"
+
+* Caso de uso 15: Eliminar archivo de una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema estar dentro de meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que contiene el archivo a eliminar.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha submeta.
+	5. El usuario hace click en eliminar del archivo que quiere editar.
+	6. El sistema modifica dicho archivo y lo redirecciona a la submeta.
+* Escenarios excepcionales:
+	4. a) 
+		* El sistema informa que "No hay archivos adjuntos a la submeta"
+
+* Caso de uso 16: Abrir archivo de una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que contiene el archivo a abrir.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+	5. El usuario hace click en el archivo.
+	6. El sistema abre el archivo.
+* Escenarios excepcionales:
+	4. a) 
+		* El sistema informa que "No hay archivos adjuntos a la meta"
+	6. b) El usuario copia el path y se deslogea y quiere abrirlo en otro pestaña
+		* El sistema informa "Sorry you don't have permission to access this file"
+
+* Caso de uso 17: Abrir archivo del navegador una meta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema.
+* Escenario exitoso principal:
+	1. El usuario selecciona la meta que contiene el archivo a ver.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+	5. El usuario hace click en la URL.
+	6. El sistema redirecciona a la URL.
+* Escenarios excepcionales:
+
+
+* Caso de uso 18: Abrir archivo de una submeta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar dentro de la meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que contiene el archivo a abrir.
+	2. El sistema ingresa a la meta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha meta.
+	5. El usuario hace click en el archivo.
+	6. El sistema abre el archivo.
+* Escenarios excepcionales:
+	4. a) 
+		* El sistema informa que "No hay archivos adjuntos a la submeta"
+	6. b) El usuario copia el path y se deslogea y quiere abrirlo en otro pestaña
+		* El sistema informa "Sorry you don't have permission to access this file"
+
+
+* Caso de uso 19: Abrir archivo del navegador una submeta
+* Actor primario : Usuario
+* Precondición: El Usuario esta logueado en el sistema y estar dentro de meta padre.
+* Escenario exitoso principal:
+	1. El usuario selecciona la submeta que contiene el archivo a ver.
+	2. El sistema ingresa a la submeta seleccionada.
+	3. El usuario hace click en el boton(File List).
+	4. El sistema abre una lista con todos los Archivos y URLs de dicha submeta.
+	5. El usuario hace click en la URL.
+	6. El sistema redirecciona a la URL.
+* Escenarios excepcionales:
+
+
+
 
 
 

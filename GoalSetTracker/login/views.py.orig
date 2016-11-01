@@ -26,7 +26,6 @@ def login(request):
             if user is not None:
                 login_user(request, user)
                 return redirect_home(username)
-
     return render(request, 'login/login.html')
 
 
@@ -37,6 +36,7 @@ def new_user(request):
         password = request.POST.get("password")
         email = request.POST.get("email")
         if is_valid(request):
+<<<<<<< HEAD
             user = User.objects.create_user(username=username,
                                             password=password,
                                             email=email
@@ -45,6 +45,23 @@ def new_user(request):
             user = authenticate(username=username, password=password, email=email)
             login_user(request, user)
             return redirect_home(username)
+=======
+            try:
+                user = User.objects.get(username=username)
+            except Exception as e:
+                user = None
+            if user == None:
+                user = User.objects.create_user(username=username,
+                                                password=password,
+                                                email=email
+                                                )
+                user.save()
+                user = authenticate(username=username,
+                                    password=password,
+                                    email=email)
+                login_user(request, user)
+                return redirect_home(username)
+>>>>>>> ed2797dc5d3984baad48eae9aa9a1d5fa76462a7
     return HttpResponseRedirect('/login')
 
 
@@ -54,10 +71,10 @@ def logout(request):
 
 
 def is_valid(request):
-    return (request.POST.get("username")
-            and request.POST.get("password")
-            and request.POST.get("mail")
-            ) is not ''
+    return (request.POST.get("username") and
+            request.POST.get("password") and
+            request.POST.get("mail")) is not ''
+
 
 def home(request, username="Anonymous"):
     if request.user.is_authenticated:

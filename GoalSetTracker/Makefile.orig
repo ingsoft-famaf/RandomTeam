@@ -8,7 +8,11 @@ clean:
 	rm -rf category/migrations
 	rm -rf upload/migrations
 	rm db.sqlite3
+<<<<<<< HEAD
 	rm -rf media/Archivo
+=======
+	rm -rf media
+>>>>>>> ed2797dc5d3984baad48eae9aa9a1d5fa76462a7
 
 update_models:
 	python manage.py makemigrations "login" "goal" "commentary" "category" "upload"
