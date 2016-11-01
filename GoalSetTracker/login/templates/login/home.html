@@ -20,13 +20,6 @@ th {
     background-color: #4CAF50;
     color: white;
 }
-table.center {
-  margin-left:auto;
-  margin-right:auto;
-  width: 80%;
-
-}
-
 
 .button {
     background-color: #4CAF50;
@@ -49,12 +42,21 @@ table.absolute {
     height: 120px;
 }
 table.left {
-    position: absolute;
     left: 0px;
     top: 84px;
     width: 49%;
     height: 120px;
 }
+
+table.center {
+  position: relative;;
+  bottom: 0;
+  margin-left:auto;
+  margin-right:auto;
+  width: 80%;
+
+}
+
 </style>
 {% if goals %}
         <table class="left">
