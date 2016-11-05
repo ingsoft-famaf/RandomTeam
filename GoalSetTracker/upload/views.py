@@ -97,22 +97,53 @@ def archivo_list(request, goal_id, subgoal_id= None):
 
 def archivo_editar(request, id_archivo, goal_id,  subgoal_id= None):
     if subgoal_id:
-        supgoal_id = goal_id
-        goal_id = subgoal_id
-    goal = get_object_or_404(AbstractGoal, pk=goal_id)
+        goal = get_object_or_404(AbstractGoal, pk=subgoal_id)
+    else:
+        goal = get_object_or_404(AbstractGoal, pk=goal_id)
+    error = ""
     archivo = models.Archivo.objects.get(id=id_archivo)
+    archivo_heredado = join(MEDIA_ROOT, archivo.upload.name)
+    archivo_viejo = "Archivo viejo: " +archivo.upload.name.replace("Archivo/"+str(goal_id)+'/', "")
     if request.method == 'GET':
         form = forms.ArchivoForm(instance=archivo)
     else:
         form = forms.ArchivoForm(request.POST, request.FILES, instance=archivo)
         if form.is_valid():
-            form.save()
-            if subgoal_id:
-                return redirect_goal(supgoal_id, goal_id)
+            tiene_url = len(form.cleaned_data['url']) > 0
+            tiene_file = len(request.FILES) > 0
+            if tiene_file:
+                if tiene_url:
+                    error += "Debe tener url o archivo"
+                else :
+                    if isfile(archivo_heredado):
+                        os.remove(archivo_heredado)
+                    form.save()
+                    if subgoal_id:
+                        return redirect_goal(goal_id, subgoal_id)
+                    else:
+                        return redirect_goal(goal_id)    
             else:
-                return redirect_goal(goal_id)
-   
-    return render(request, 'upload/index.html', {'form':form})
+                if tiene_url:
+                    if isfile(archivo_heredado):
+                        os.remove(archivo_heredado)
+                    form.cleaned_data['upload'].name = ""
+                    form.save()
+                    if subgoal_id:
+                        return redirect_goal(goal_id, subgoal_id)
+                    else:
+                        return redirect_goal(goal_id)
+                else :
+                    if not (archivo_heredado is None):
+                        form.save()
+                        if subgoal_id:
+                            return redirect_goal(goal_id, subgoal_id)
+                        else:
+                            return redirect_goal(goal_id)
+                    else:
+                        error += "Debe tener url o archivo"
+        else:
+            error += "url no valido"
+    return render(request, 'upload/index.html', {'form':form, 'archivo_viejo' : archivo_viejo, 'mensaje_error' : error})
     
 def archivo_eliminar(request, id_archivo, goal_id, subgoal_id=None):
     if subgoal_id:

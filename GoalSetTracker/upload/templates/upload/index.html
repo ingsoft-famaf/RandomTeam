@@ -3,6 +3,10 @@
 <form action="" method="POST", enctype = "multipart/form-data">
 <h2> Añadir Archivo </h2>
 
+{% if archivo_viejo %}
+	<h5 style="color:blue"> {{ archivo_viejo}} </h5>
+{% endif %}
+
 {% if mensaje_error %}
 	<h3 style="color:red"> {{ mensaje_error }} </h3>
 {% endif %}

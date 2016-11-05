@@ -8,6 +8,8 @@ from goal.models import AbstractGoal
 from django.core.validators import URLValidator
 
 
+
+
 def content_file_name(instance, filename):
     return '/'.join(['Archivo', str(instance.goal.id), filename])+'/'
 
@@ -20,3 +22,4 @@ class Archivo(models.Model):
     upload = models.FileField(upload_to= content_file_name , blank=True, null=True) 
     url = models.TextField(validators=[URLValidator()],  blank=True, null=True)
     fecha = models.DateTimeField(auto_now_add=True)
+

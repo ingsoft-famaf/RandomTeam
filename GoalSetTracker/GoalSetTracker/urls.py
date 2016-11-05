@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^goal/(?P<goal_id>[0-9]+)/remove_upload/(?P<id_archivo>\d+)/$', upload_views.archivo_eliminar, name = 'remove_upload'),
     url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/remove_upload/(?P<id_archivo>\d+)/$', upload_views.archivo_eliminar, name = 'remove_sub_upload'),
     url(r'^goal/(?P<goal_id>[0-9]+)/add_file/', upload_views.upload_img, name = 'add_file'),
-    url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/add_file/', upload_views.upload_img, name = 'add_sub_file'),
+    url(r'^goal/(?P<goal_id>[0-9]+)/subgoal/(?P<subgoal_id>[0-9]+)/add_sub_file/', upload_views.upload_img, name = 'add_sub_file'),
     url(r'^login/', include('login.urls')),
     url(r'^$', login_views.login, name='login'),
     url(r'^logout$', login_views.logout, name='logout'),
