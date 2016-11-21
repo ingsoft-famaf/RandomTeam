@@ -1,4 +1,13 @@
-<h1> Welcome to your categories </h1>
+{% extends 'login/base.html' %}
+
+{% block content %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Welcome to your categories </title>
+</head>
+       <h1> Welcome to your categories </h1>
 <h2> Your categories are: </h2>
 {% if category_all %}
   <ul>
@@ -12,6 +21,4 @@
 <form action="{% url 'category_new' %}" method="get">
     <input type="submit" value="New Category" />
 </form>
-<form action="{% url 'home' %}" method="get">
-    <input type="submit" value="Return home" />
-</form>
+{% endblock %}
