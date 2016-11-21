@@ -42,7 +42,8 @@ def new_user(request):
                                             email=email
                                             )
             user.save()
-            user = authenticate(username=username, password=password, email=email)
+            user = authenticate(username=username, password=password,
+                                email=email)
             login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')
@@ -54,10 +55,11 @@ def logout(request):
 
 
 def is_valid(request):
-    return (request.POST.get("username")
-            and request.POST.get("password")
-            and request.POST.get("mail")
+    return (request.POST.get("username") and
+            request.POST.get("password") and
+            request.POST.get("mail")
             ) is not ''
+
 
 def home(request, username="Anonymous"):
     if request.user.is_authenticated:

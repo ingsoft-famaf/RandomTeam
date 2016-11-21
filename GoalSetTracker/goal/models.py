@@ -18,6 +18,8 @@ TipeState = (
     ('PROPOS', 'Proposed'),
     ('FINISH', 'Finished'),
 )
+
+
 @python_2_unicode_compatible
 class AbstractGoal(models.Model):
     goal_text = models.CharField(max_length=200)
@@ -31,7 +33,8 @@ class AbstractGoal(models.Model):
         return self.goal_text
 
     def is_active(self):
-        return self.finish_date > timezone.now()
+        return (self.state != "FINISH")
+
 
 @python_2_unicode_compatible
 class Goal(AbstractGoal):

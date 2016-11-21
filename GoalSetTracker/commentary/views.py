@@ -10,6 +10,7 @@ from .models import Comment
 from goal.models import Goal
 from goal.views import redirect_goal
 
+
 def new_comment(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     if request.user.is_authenticated:
@@ -19,13 +20,16 @@ def new_comment(request, goal_id):
             return HttpResponse("El usuario no existe")
         if request.method == "POST":
             if request.POST.get("comment_text"):
-                comment = Comment(owner=user, goal=goal, text=request.POST.get("comment_text"))
+                comment = Comment(owner=user, goal=goal,
+                                  text=request.POST.get("comment_text"))
             comment.save()
             return redirect_goal(goal_id)
         else:
-            return render(request, 'commentary/new_comment.html', {'goal': goal })
+            return render(request, 'commentary/new_comment.html',
+                          {'goal': goal})
     else:
         return HttpResponseRedirect("/login")
+
 
 def modify_comment(request, goal_id, comment_id):
     goal = get_object_or_404(Goal, pk=goal_id)
@@ -37,9 +41,11 @@ def modify_comment(request, goal_id, comment_id):
             comment.save()
             return redirect_goal(goal_id)
         else:
-            return render(request, 'commentary/modify_comment.html', {'goal': goal, 'comment': comment })
+            return render(request, 'commentary/modify_comment.html',
+                          {'goal': goal, 'comment': comment})
     else:
         return HttpResponseRedirect("/login")
+
 
 def delete_comment(request, goal_id, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
