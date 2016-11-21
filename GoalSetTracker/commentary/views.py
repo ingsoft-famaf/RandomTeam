@@ -20,10 +20,7 @@ def new_comment(request, goal_id, subgoal_id=None):
 
     if request.user.is_authenticated:
         if (request.user == goal.owner):
-            try:
-                user = User.objects.get(username=request.user.username)
-            except Exception as e:
-                return HttpResponse("El usuario no existe")
+            user = User.objects.get(username=request.user.username)
 
             if request.method == "POST":
                 if request.POST.get("comment_text"):
@@ -74,6 +71,7 @@ def modify_comment(request, goal_id, comment_id, subgoal_id=None):
 
 def delete_comment(request, goal_id, comment_id, subgoal_id=None):
     comment = get_object_or_404(Comment, pk=comment_id)
+    goal = get_object_or_404(AbstractGoal, pk=goal_id)
     if request.user.is_authenticated:
         if (request.user == goal.owner):
             if request.method == "GET":
