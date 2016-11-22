@@ -41,7 +41,7 @@
     {{ comment.owner }} - {{ comment.create_date }}
     <br />
     <div class="comment-edit-delete" >
-    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>"
+    <a href="{% url 'modify_comment' goal.id comment.id %}" style="text-decoration: none !important;">[edit]</a>
     <a href="{% url 'delete_comment' goal.id comment.id %}" onclick="return confirm('Are you sure you want to delete the comment?')"
        style="text-decoration: none !important;">[delete]</a>
     </div>
