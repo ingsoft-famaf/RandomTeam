@@ -97,21 +97,22 @@ def detail_sub_goal(request, goal_id, subgoal_id):
 def modify_goal(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     if request.user.is_authenticated:
-        if request.method == "POST":
-            if request.POST.get("finish_date"):
-                goal.finish_date = request.POST.get("finish_date")
-            if request.POST.get("goal_text"):
-                goal.goal_text = request.POST.get("goal_text")
-            if request.POST.get("create_date"):
-                goal.create_date = request.POST.get("create_date")
-            if request.POST.get("priority"):
-                goal.priority = request.POST.get("priority")
-            if request.POST.get("state"):
-                goal.state = request.POST.get("state")
-            goal.save()
-            return redirect_goal(goal_id)
-        else:
-            return render(request, 'goal/modify_goal.html', {'goal': goal})
+        if request.user == goal.owner:
+            if request.method == "POST":
+                if request.POST.get("finish_date"):
+                    goal.finish_date = request.POST.get("finish_date")
+                if request.POST.get("goal_text"):
+                    goal.goal_text = request.POST.get("goal_text")
+                if request.POST.get("create_date"):
+                    goal.create_date = request.POST.get("create_date")
+                if request.POST.get("priority"):
+                    goal.priority = request.POST.get("priority")
+                if request.POST.get("state"):
+                    goal.state = request.POST.get("state")
+                goal.save()
+                return redirect_goal(goal_id)
+            else:
+                return render(request, 'goal/modify_goal.html', {'goal': goal})
 
 
 def modify_sub_goal(request, goal_id, subgoal_id):
@@ -119,22 +120,23 @@ def modify_sub_goal(request, goal_id, subgoal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     # TODO chequear que son del usuario las metas y submetas
     if request.user.is_authenticated:
-        if request.method == "POST":
-            if request.POST.get("finish_date"):
-                subgoal.finish_date = request.POST.get("finish_date")
-            if request.POST.get("goal_text"):
-                subgoal.goal_text = request.POST.get("goal_text")
-            if request.POST.get("create_date"):
-                subgoal.create_date = request.POST.get("create_date")
-            if request.POST.get("priority"):
-                subgoal.priority = request.POST.get("priority")
-            if request.POST.get("state"):
-                subgoal.state = request.POST.get("state")
-            subgoal.save()
-            return redirect_goal(goal_id, subgoal_id)
-        else:
-            return render(request, 'goal/modify_sub_goal.html',
-                          {'goal': goal, 'subgoal': subgoal})
+        if request.user == goal.owner:
+            if request.method == "POST":
+                if request.POST.get("finish_date"):
+                    subgoal.finish_date = request.POST.get("finish_date")
+                if request.POST.get("goal_text"):
+                    subgoal.goal_text = request.POST.get("goal_text")
+                if request.POST.get("create_date"):
+                    subgoal.create_date = request.POST.get("create_date")
+                if request.POST.get("priority"):
+                    subgoal.priority = request.POST.get("priority")
+                if request.POST.get("state"):
+                    subgoal.state = request.POST.get("state")
+                subgoal.save()
+                return redirect_goal(goal_id, subgoal_id)
+            else:
+                return render(request, 'goal/modify_sub_goal.html',
+                              {'goal': goal, 'subgoal': subgoal})
 
 
 def redirect_goal(id, subgoal_id=None):
