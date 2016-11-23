@@ -1,0 +1,38 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
+
+{% if goals %}
+        <table class="left">
+          <thead>
+            <tr>
+                <th>
+                    <h3>Goals near deadline</h3>
+                </th>
+                <th>
+                    <h3>Finish Date</h4>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for goal in goals %}
+                  <tr>
+                    <td>
+                        <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+                    </td>
+                    <td>
+                        <i> {{ goal.finish_date }} </i>
+                    </td>
+                    <td>
+                        <i>, Time until deadline: {{ goal.time_until_deadline.days }} days </i>
+                    </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+
+{% else %}
+    <h3><p>You dont have Goals near deadline</p></h3>
+{% endif %}
+
+{% endblock %}

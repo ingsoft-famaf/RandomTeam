@@ -19,10 +19,11 @@ from django.contrib import admin
 from login import views as login_views
 from goal import views as goal_views
 from commentary import views as comment_views
+from upload import views as upload_views
+from notifications import views as notif_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
-from upload import views as upload_views
 
 
 urlpatterns = [
@@ -90,5 +91,11 @@ urlpatterns = [
     url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL[1:]),
         upload_views.protected_serve, {'file_root': settings.MEDIA_ROOT}),
     url(r'^$', RedirectView.as_view(url='/upload/media/', permanent=True)),
+    # Notifications
+    url(r'^notifications/$', notif_views.show_goals_near_deadline,
+        name='show_notifications'),
+    url(r'^notifications/goal_exist_near_deadline/$',
+        notif_views.goal_exist_near_deadline,
+        name='goal_exist_near_deadline'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
