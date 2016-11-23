@@ -157,7 +157,7 @@ table.center {
                   <i> {{goal.finish_date}}
                 </td>
                 <td>
-                  <p id="porcentaje"></p>
+                  <p id="goal{{ forloop.counter }}"></p>
                   <script>
                      var cantidad_de_submetas = 0
                      var cantidad_de_submetas_completas = 0
@@ -174,14 +174,15 @@ table.center {
                        {% endif %}
                    {% endfor %}
                    <script>
-                     porcentaje = (100 / cantidad_de_submetas) * cantidad_de_submetas_completas;
-                     document.getElementById("porcentaje").innerHTML = porcentaje + "%";
+                     if(cantidad_de_submetas != 0){
+                       porcentaje = (100 / cantidad_de_submetas) * cantidad_de_submetas_completas;}
+                     document.getElementById("goal{{ forloop.counter }}").innerHTML = porcentaje + "%";
                      if(porcentaje < 34){
-                     document.getElementById("porcentaje").style.color = "red";}  
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "red";}  
                      else if(porcentaje < 67){
-                     document.getElementById("porcentaje").style.color = "orange";} 
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "orange";} 
                      else{
-                     document.getElementById("porcentaje").style.color = "green";} 
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "green";} 
                    </script>
                 </td>
                 <td>
