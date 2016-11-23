@@ -17,7 +17,9 @@
      </div>
       <ul class="nav nav-collapse pull-right">
         <li><a href="{% url 'category' %}"></i> Categories</a></li>
-        <li><a href="{% url 'show_notifications' %}"></i> Notifications</a></li>
+        <li><a href="{% url 'show_notifications' %}"
+            style = "{% if 1 == 1 %} color:red; {% endif %}">
+        </i> Notifications</a></li>
         <li><a href="{% url 'logout' %}"></i> Logout</a></li>
       </ul>
       <div class="nav-collapse collapse"></div>
