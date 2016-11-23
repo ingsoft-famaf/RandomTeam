@@ -11,8 +11,7 @@
   <body>
     <form action="{% url 'modify_goal' goal.id %}" method="post">{% csrf_token %}
       <p> Description <input name="goal_text" size=40 value="{{ goal.goal_text }}"> </p>
-      <p> Deadline <input name="finish_date" size=40 type="date"> </p>
-      <p> Create Date <input name="create_date" size=40 type="date"> </p>
+      <p> Deadline <input name="finish_date" size=40 type="date" value="{{ goal.finish_date| date:"Y-m-d"}}"></p>
       <p> Priority
       <input type="radio" name="priority" value="H" > High
       <input type="radio" name="priority" value="M"checked> Medium
