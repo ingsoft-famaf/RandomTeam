@@ -94,5 +94,8 @@ urlpatterns = [
     # Notifications
     url(r'^notifications/$', notif_views.show_goals_near_deadline,
         name='show_notifications'),
+    url(r'^notifications/goal_exist_near_deadline/$',
+        notif_views.goal_exist_near_deadline,
+        name='goal_exist_near_deadline'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

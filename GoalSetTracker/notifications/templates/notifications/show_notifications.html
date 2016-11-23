@@ -24,7 +24,7 @@
                         <i> {{ goal.finish_date }} </i>
                     </td>
                     <td>
-                        <i>, Time until deadline: {{ goal.time_until_deadline }} </i>
+                        <i>, Time until deadline: {{ goal.time_until_deadline.days }} days </i>
                     </td>
                   </tr>
               {% endfor %}
