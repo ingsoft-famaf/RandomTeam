@@ -37,6 +37,11 @@ class AbstractGoal(models.Model):
     
     def time_until_deadline(self):
         return (self.finish_date - timezone.now())
+    
+    def near_deadline(self):       
+        near_deadline_days = 7
+        days = self.time_until_deadline().days
+        return (days < near_deadline_days)
 
 
 @python_2_unicode_compatible
