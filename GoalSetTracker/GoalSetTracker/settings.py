@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'commentary.apps.CommentaryConfig',
     'category.apps.CategoryConfig',
     'upload.apps.UploadConfig',
+    'notifications.apps.NotificationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

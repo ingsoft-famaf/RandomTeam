@@ -11,7 +11,7 @@ clean:
 	rm -rf media/Archivo
 
 update_models:
-	python manage.py makemigrations "login" "goal" "commentary" "category" "upload"
+	python manage.py makemigrations "login" "goal" "commentary" "category" "upload" "notifications"
 	python manage.py migrate
 	python manage.py loaddata social-config.json
 
