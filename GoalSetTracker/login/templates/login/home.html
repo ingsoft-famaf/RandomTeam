@@ -140,6 +140,9 @@ table.center {
                 <h3>Finish Date</h3>
             </th>
             <th>
+                <h3>Completion percentage</h3>
+            </th>
+            <th>
                 <h3>Category</h3>
             </th>
         </tr>
@@ -154,9 +157,38 @@ table.center {
                   <i> {{goal.finish_date}}
                 </td>
                 <td>
-                       <i>{% for category in goal.category_set.all %}
-                         <li><a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a></li>
-                         {% endfor %}
+                  <p id="goal{{ forloop.counter }}"></p>
+                  <script>
+                     var cantidad_de_submetas = 0
+                     var cantidad_de_submetas_completas = 0
+                     var porcentaje = 0
+                   </script>
+                   {% for subgoal in goal.subgoal_set.all %}
+                       <script>
+                         cantidad_de_submetas = cantidad_de_submetas + 1;
+                       </script>
+                       {% if subgoal.state == "FINISH" %}
+                         <script>
+                           cantidad_de_submetas_completas = cantidad_de_submetas_completas + 1;
+                         </script>
+                       {% endif %}
+                   {% endfor %}
+                   <script>
+                     if(cantidad_de_submetas != 0){
+                       porcentaje = (100 / cantidad_de_submetas) * cantidad_de_submetas_completas;}
+                     document.getElementById("goal{{ forloop.counter }}").innerHTML = porcentaje + "%";
+                     if(porcentaje < 34){
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "red";}  
+                     else if(porcentaje < 67){
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "orange";} 
+                     else{
+                       document.getElementById("goal{{ forloop.counter }}").style.color = "green";} 
+                   </script>
+                </td>
+                <td>
+                  <i>{% for category in goal.category_set.all %}
+                     <li><a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a></li>
+                     {% endfor %}
                 </td>
               </tr>
           {% endfor %}
