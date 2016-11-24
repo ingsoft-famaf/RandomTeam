@@ -25,6 +25,7 @@ El sistema cuenta con un sistema de alerta para indicarle al usuario que una met
 ## Requerimientos para poder usar la aplicacion
 
 -django
+
 -django-allauth
 
 
@@ -46,6 +47,9 @@ Una forma alternativa para hacer todo esto junto es utilizar el Makefile con el 
 # Colaboradores
 
 -Francisco Nievas
+
 -Luciano Rodriguez
+
 -Diego Lupi
+
 -Nicolas Sabbatini
