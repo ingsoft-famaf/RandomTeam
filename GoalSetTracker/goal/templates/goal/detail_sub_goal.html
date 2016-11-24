@@ -1,3 +1,6 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
 <h1>{{ subgoal.goal_text }}</h1>
 <h3>Finish Date: {{ subgoal.finish_date }}</h3>
 <h3>Create Date: {{ subgoal.create_date }}</h3>
@@ -27,7 +30,7 @@
     {{ comment.owner }} - {{ comment.create_date }}
     <br />
     <div class="comment-edit-delete" >
-    <a href="{% url 'modify_comment' goal.id subgoal.id comment.id %}" style="text-decoration: none !important;"">[edit]</a>
+    <a href="{% url 'modify_comment' goal.id subgoal.id comment.id %}" style="text-decoration: none !important;">[edit]</a>
     <a href="{% url 'delete_comment' goal.id subgoal.id comment.id %}" onclick="return confirm('Are you sure you want to delete the comment?')"
        style="text-decoration: none !important;">[delete]</a>
     </div>
@@ -36,4 +39,12 @@
 {% endfor %}
 
 </div>
+<h4>Files</h4>
+<form action="{% url 'list_sub_uploads' goal.id subgoal.id  %}" method="get">
+    <input type="submit" value="File List" />
+</form>
+<form action="{% url 'add_sub_file' goal.id subgoal.id  %}" method="get">
+    <input type="submit" value="Add File" />
+</form>
 <br />
+{% endblock %}

@@ -1,24 +1,255 @@
-{{ user }}
+{% extends 'login/base.html' %}
+
+{% block content %}
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 49%;
+
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+table.absolute {
+    position: absolute;
+    right: 0px;
+    top: 84px;
+    width: 49%;
+    height: 120px;
+}
+table.left {
+    left: 0px;
+    top: 84px;
+    width: 49%;
+    height: 120px;
+}
+
+table.center {
+  position: relative;
+  bottom: 0;
+  margin-left:auto;
+  margin-right:auto;
+  width: 80%;
+
+}
+
+</style>
 {% if goals %}
-    <ul>
-    {% for goal in goals %}
-        <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
-    {% endfor %}
-    </ul>
+        <table class="left">
+          <thead>
+            <tr>
+                <th>
+                    <h3>Actives Goals</h3>
+                </th>
+                <th>
+                    <h3>Finish Date</h4>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% if actives %}
+                  {% for goal in actives %}
+                      <tr>
+                        <td>
+                            <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+                        </td>
+                        <td>
+                            <i> {{goal.finish_date}}
+                        </td>
+                      </tr>
+                  {% endfor %}
+              {% else %}
+                  <tr>
+                  <td>
+                      <i> No Actives Goals
+                  </td>
+                  </tr>
+              {% endif %}
+          </tbody>
+        </table>
+        <br></br>
+    {% if finished %}
+        <table class="absolute">
+          <thead>
+            <tr>
+                <th>
+                    <h3>Finished Goals</h3>
+                </th>
+                <th>
+                    <h3>Do you want to pospose the goals?</h4>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for goal in finished %}
+                  <tr>
+                    <td>
+                      <a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a>
+                    </td>
+                    <td>
+                      <a href="{% url 'modify_goal' goal.id %}"> Pospose</a>
+                    </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    {% endif %}
+    <br></br>
+    
+    {% if actives > finished %}
+        {% for goal in actives %}
+        <br></br>
+        {% endfor %}
+    {% else %}
+        {% for goal in finished %}
+        <br></br>
+        {% endfor %}
+    {% endif %}
+    
+    <table class="center">
+      <thead>
+        <tr>
+            <th>
+                <h3>Goals</h3>
+            </th>
+            <th>
+                <h3>Finish Date</h3>
+            </th>
+            <th>
+                <h3>Completion percentage</h3>
+            </th>
+            <th>
+                <h3>Category</h3>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for goal in goals_f %}
+              <tr>
+                <td>
+                  <li><a href="{% url 'detail' goal.id %}" name=>{{ goal.goal_text }}</a></li>
+                </td>
+                <td>
+                  <i> {{goal.finish_date}}
+                </td>
+                <td>
+                  <p id="goal{{ forloop.counter }}"></p>
+                  <script>
+                     var cantidad_de_submetas = 0
+                     var cantidad_de_submetas_completas = 0
+                     var porcentaje = 0
+                   </script>
+                   {% if goal.state == "FINISH" %}
+                       <script>
+                         porcentaje = 100;
+                       </script>
+                   {% else %}
+                     {% for subgoal in goal.subgoal_set.all %}
+                         <script>
+                           cantidad_de_submetas = cantidad_de_submetas + 1;
+                         </script>
+                         {% if subgoal.state == "FINISH" %}
+                           <script>
+                             cantidad_de_submetas_completas = cantidad_de_submetas_completas + 1;
+                           </script>
+                         {% endif %}
+                     {% endfor %}
+                     <script>
+                     if(cantidad_de_submetas != 0){
+                       porcentaje = (100 / cantidad_de_submetas) * cantidad_de_submetas_completas;}
+                     </script>
+                   {% endif %}
+                   <script>
+                   document.getElementById("goal{{ forloop.counter }}").innerHTML = porcentaje + "%";
+                   if(porcentaje < 34){
+                     document.getElementById("goal{{ forloop.counter }}").style.color = "red";}  
+                   else if(porcentaje < 67){
+                     document.getElementById("goal{{ forloop.counter }}").style.color = "orange";} 
+                   else{
+                     document.getElementById("goal{{ forloop.counter }}").style.color = "green";} 
+                   </script>
+                </td>
+                <td>
+                  <i>{% for category in goal.category_set.all %}
+                     <li><a href="/category/{{ category.id}}/">{{ category.category_tipo }} </a></li>
+                     {% endfor %}
+                </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    <br></br>
+    <br></br>
+        
+       <form action="{% url 'home' user %}" method="post">{% csrf_token %}
+       <table class="center">
+       <thead>
+       <tr>
+            <th>
+                <h2>Select categories to filter</h2>
+            </th>
+            <th>
+                <h2>Select the way to sort</h2>
+            </th>
+       </tr>
+       </thead>
+       <tbody>
+            <tr>
+                <td>
+                    {% if categories%}
+                    <ul>
+                        {% for category in categories %}
+                        <input type="checkbox" name="category_filter[]" id="category_filter{{ forloop.counter }}" value="{{ category.id }}"> 
+                        <label for="category_filter{{ forloop.counter }}">{{ category.category_tipo }}</label><br />
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h3><p>You dont have any Category to filter</p></h3>
+                    {% endif %}
+                </td>
+                <td>
+                    <p><input type="radio" name="sort" value="A-Z" checked> A-Z </p>
+                    <p><input type="radio" name="sort" value="Z-A"> Z-A </p>
+                    <p><input type="radio" name="sort" value="FECHA_N"> RECENT  </p>
+                    <p><input type="radio" name="sort" value="FECHA_L"> LAST </p>
+                </td>
+            </tr>
+       </tbody>
+       </table>
+              <input class="button" type="submit" value="Filtrar" />
+              </form>
+
 {% else %}
-    <p>No hay metas</p>
+    <h3><p>You dont have Goals</p></h3>
 {% endif %}
-<form action="{% url 'logout' %}" method="get">
-    <input type="submit" value="Logout" />
+
+<br><br>
+<form class="form" action="{% url 'new_goal' %}" method="get">
+    <input class="button" type="submit" value="New Goal" />
 </form>
 
-
-<h4>Goals</h4>
-<form action="{% url 'new_goal' %}" method="get">
-    <input type="submit" value="New Goal" />
-</form>
-
-<h4>Categories</h4>
-<form action="{% url 'category' %}" method="get">
-    <input type="submit" value="Go to categories" />
-</form>
+{% endblock %}

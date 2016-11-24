@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 from goal.models import AbstractGoal, Goal, SubGoal
-from django.db import IntegrityError
+
 
 @csrf_protect
 def login(request):
@@ -20,12 +20,15 @@ def login(request):
         password = request.POST.get("password")
         email = request.POST.get("email")
         if is_valid(request):
-            user = authenticate(username=username, password=password, email=email)
+            user = authenticate(username=username,
+                                password=password,
+                                email=email)
             if user is not None:
                 login_user(request, user)
                 return redirect_home(username)
 
     return render(request, 'login/login.html')
+
 
 @csrf_protect
 def new_user(request):
@@ -39,20 +42,24 @@ def new_user(request):
                                             email=email
                                             )
             user.save()
-            user = authenticate(username=username, password=password, email=email)
+            user = authenticate(username=username, password=password,
+                                email=email)
             login_user(request, user)
             return redirect_home(username)
     return HttpResponseRedirect('/login')
+
 
 def logout(request):
     logout_user(request)
     return HttpResponseRedirect("/login")
 
+
 def is_valid(request):
-    return (request.POST.get("username")
-            and request.POST.get("password")
-            and request.POST.get("mail")
+    return (request.POST.get("username") and
+            request.POST.get("password") and
+            request.POST.get("mail")
             ) is not ''
+
 
 def home(request, username="Anonymous"):
     if request.user.is_authenticated:
@@ -61,17 +68,39 @@ def home(request, username="Anonymous"):
             try:
                 user = User.objects.get(username=username)
                 goals = Goal.objects.filter(owner=user)
+                categories = user.category_set.all()
             except Exception as e:
                 return HttpResponse("El usuario no existe")
+            actives = [goal for goal in goals if goal.is_active()]
+            finished = [goal for goal in goals if not goal.is_active()]
+            goals_f = goals
+            if request.method == "POST":
+                if request.POST.getlist('category_filter[]'):
+                    goals_f = goals_f.filter(category__in = request.POST.getlist('category_filter[]')).distinct()
+                if request.POST.get("sort"):
+                    sort_o = request.POST.get("sort")
+                    if sort_o == "Z-A":
+                       goals_f = goals_f.order_by('-goal_text')
+                    elif sort_o == "FECHA_N":
+                       goals_f = goals_f.order_by('finish_date')
+                    elif sort_o == "FECHA_L":
+                       goals_f = goals_f.order_by('-finish_date')
+                    else:
+                       goals_f = goals_f.order_by('goal_text')
             return render(request, 'login/home.html', {
-                'user'  : username,
-                'goals' : goals,
-            })
+                'user': username,
+                'goals': goals,
+                'actives': actives,
+                'finished': finished,
+                'categories': categories,
+                'goals_f': goals_f,
+                })
         else:
             # El usuario quiere ingresar a otro home que no es el suyo.
             return redirect_home(request.user.username)
     else:
         return HttpResponseRedirect("/login")
+
 
 def redirect_home(username):
     return HttpResponseRedirect("/home/{}".format(username))

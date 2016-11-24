@@ -1,4 +1,5 @@
-
+{% extends 'login/base.html' %}
+{% block content %}
 <form action="" method="POST", enctype = "multipart/form-data">
 <h2> Añadir Archivo </h2>
 
@@ -20,3 +21,4 @@
 <br> <h5> <button type='submit'>Save</button> </h5>
 
 {% csrf_token %}
+{% endblock %}

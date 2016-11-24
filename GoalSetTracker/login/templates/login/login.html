@@ -16,24 +16,24 @@
           <a href="#" id="signup-box-link">Sign Up</a>
       </div>
       <div class="social-login">
-          <a href="#">
+          <a href="{% url 'facebook_login' %}">
               <i class="fa fa-facebook fa-lg"></i>
               Login in with facebook
           </a>
-          <a href="#">
+          <a href="{% url 'google_login' %}">
             <i class="fa fa-google-plus fa-lg"></i>
             log in with Google
           </a>
       </div>
       <form action="{% url 'login' %}" method="post" class="email-login">{% csrf_token %}
           <div class="u-form-group">
-              <input type="username" name="username" placeholder="Username"/>
+              <input type="username" name="username" placeholder="Username" required/>
           </div>
           <div class="u-form-group">
-              <input type="email" name="email" placeholder="Email"/>
+              <input type="email" name="email" placeholder="Email" required/>
           </div>
           <div class="u-form-group">
-            <input type="password" name="password" placeholder="Password"/>
+            <input type="password" name="password" placeholder="Password" required/>
           </div>
           <div class="u-form-group">
             <button type="submit" value="Submit">Log in</button>
@@ -44,13 +44,13 @@
       </form>
       <form action="{% url 'new_user' %}" method="post" class="email-signup">{% csrf_token %}
           <div class="u-form-group">
-              <input type="username"  name="username" placeholder="Username"/>
+              <input type="username"  name="username" placeholder="Username" required/>
           </div>
           <div class="u-form-group">
-              <input type="email"  name="email" placeholder="Email"/>
+              <input type="email"  name="email" placeholder="Email" required/>
           </div>
           <div class="u-form-group">
-              <input type="password"  name="password" placeholder="Password"/>
+              <input type="password"  name="password" placeholder="Password" required/>
           </div>
             <div class="u-form-group">
                 <button type="submit" value="Submit">Sign Up</button>

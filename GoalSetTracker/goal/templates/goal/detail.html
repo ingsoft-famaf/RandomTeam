@@ -1,3 +1,6 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
 <h1>{{ goal.goal_text }}</h1>
 <h3>Finish Date: {{ goal.finish_date }}</h3>
 <h3>Create Date: {{ goal.create_date }}</h3>
@@ -45,7 +48,10 @@
     </span>
     </div>
 {% endfor %}
+
 </div>
+<br />
+
 <h4>Files</h4>
 <form action="{% url 'list_uploads' goal.id %}" method="get">
     <input type="submit" value="File List" />
@@ -58,3 +64,4 @@
 <form action="{% url 'home' %}" method="get">
     <input type="submit" value="Back to homepage" />
 </form>
+{% endblock %}
