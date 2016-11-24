@@ -1,7 +1,3 @@
-## Take Home
-
-Francisco Nievas
-frannievas@gmail.com
 
 #### Descripción del alcance
 
@@ -12,7 +8,7 @@ El sistema contará con un sistema de alerta para indicarle al usuario que una m
 
 #### DFD
 
-![](metas.png)
+![](Goal Tracker DFD.png)
 
 #### Casos de uso
 

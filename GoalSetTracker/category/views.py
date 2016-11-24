@@ -24,9 +24,12 @@ def category(request):
 def category_info(request,category_id):
     if request.user.is_authenticated:
        category = get_object_or_404(Category, pk=category_id)
-       return render(request,'category/category_info.html',{'category' : category})
+       if request.user == category.owner:
+          return render(request,'category/category_info.html',{'category' : category})
+       else:
+          return redirect_home(request.user)
     else:
-        return HttpResponseRedirect("/login")
+       return HttpResponseRedirect("/login")
 
 def category_new(request):
    if request.user.is_authenticated:
@@ -66,7 +69,10 @@ def category_edit(request,category_id):
                   category.delete()
              return HttpResponseRedirect("/category")
         else:
-            return render(request,'category/category_edit.html',{'category' : category, 'goals_all' : goals_all})
+            if user == category.owner:
+              return render(request,'category/category_edit.html',{'category' : category, 'goals_all' : goals_all})
+            else:
+              return redirect_home(request.user)
     else:
         return HttpResponseRedirect("/login")
 
