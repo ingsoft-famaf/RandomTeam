@@ -24,8 +24,8 @@ El sistema cuenta con un sistema de alerta para indicarle al usuario que una met
 
 ## Requerimientos para poder usar la aplicacion
 
-django
-django-allauth
+-django
+-django-allauth
 
 
 ##Para empezar a usar la aplicacion:
