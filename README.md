@@ -19,7 +19,7 @@ El sistema cuenta con un sistema de alerta para indicarle al usuario que una met
 
 # Diagrama de clases
 
-![](SRS/Goal Tracker Clases.pdf)
+![](SRS/Goal Tracker Clases.png)
 
 
 ## Requerimientos para poder usar la aplicacion
